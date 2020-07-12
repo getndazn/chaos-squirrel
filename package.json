@@ -1,0 +1,64 @@
+{
+  "name": "@dazn/chaos-squirrel",
+  "private": true,
+  "version": "0.0.0",
+  "description": "JavaScript Chaos",
+  "scripts": {
+    "lerna": "lerna",
+    "postinstall": "lerna bootstrap",
+    "lint": "eslint --ext ts .",
+    "test": "jest",
+    "test-package": "jest --projects packages/$PKG",
+    "build": "lerna run build",
+    "new-version": "lerna version --conventional-commits --create-release github --yes",
+    "publish": "lerna publish from-package --yes"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@types/jest": "^26.0.4",
+    "@types/node": "^12.6.8",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5",
+    "shx": "^0.3.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/chaos-squirrel.git"
+  },
+  "author": "Simon Tabor <simon.tabor@dazn.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/getndazn/chaos-squirrel/issues"
+  },
+  "homepage": "https://github.com/getndazn/chaos-squirrel#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "publishConfig": {
+    "@dazn:registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "no-console": 0,
+    "strict": 0,
+    "no-undef": "error",
+    "@typescript-eslint/camelcase": 0
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/__mocks__/*.ts", "**/jest.setup.ts"],
+      "env": {
+        "jest": true
+      },
+      "plugins": ["jest"],
+      "rules": {
+        "node/no-unpublished-require": 0,
+        "node/no-missing-require": 0,
+
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-explicit-any": 0
+      }
+    }
+  ]
+}
