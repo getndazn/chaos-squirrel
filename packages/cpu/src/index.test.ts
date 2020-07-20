@@ -3,7 +3,7 @@ import { startCPU } from './';
 describe('when allowLoopEvery is set to 10ms', () => {
   it('blocks CPU until each allowLoopEvery interval is reached', (done) => {
     const start = Date.now();
-    const attack = startCPU({ allowLoopEvery: 10000 });
+    const attack = startCPU({ allowLoopEvery: 10 });
     setImmediate(() => {
       attack.stop();
       const end = Date.now();
