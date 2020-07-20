@@ -1,9 +1,8 @@
 module.exports = {
+  testEnvironment: 'node',
+  clearMocks: true,
   collectCoverage: true,
   coverageReporters: ['text', 'html', 'lcov'],
-  testEnvironment: 'node',
-  projects: ['packages/*'],
-  clearMocks: true,
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
