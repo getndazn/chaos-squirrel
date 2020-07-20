@@ -8,7 +8,6 @@
     "postinstall": "lerna bootstrap",
     "lint": "eslint --ext ts .",
     "test": "lerna exec -- npm test",
-    "test-package": "jest --projects packages/$PKG",
     "build": "lerna run build",
     "new-version": "lerna version --conventional-commits --create-release github --yes",
     "publish": "lerna publish from-package --yes"
