@@ -8,7 +8,7 @@ pipeline:
     commands:
       - npm config set //npm.daznplatform.com/:_authToken $JFROG_ARTIFACTORY_TOKEN
       - npm ci
-      - npm run install
+      - npm run postinstall
       - npm run build
 
   lint:
