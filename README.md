@@ -14,7 +14,7 @@ JavaScript Chaos
 ## Common Module Interface
 
 ```ts
-import { startCPU } from '@dazn/chaos-squirrel-cpu';
+import { startCPU } from '@dazn/chaos-squirrel-attack-cpu';
 
 const attack = startCPU({
   allowLoopEvery: 1000,
