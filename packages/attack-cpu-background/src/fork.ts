@@ -1,4 +1,4 @@
-import { startCPU } from '@dazn/chaos-squirrel-cpu';
+import { startCPU } from '@dazn/chaos-squirrel-attack-cpu';
 
 process.on('message', ({ runTime = Infinity }: { runTime: number }) => {
   startCPU({

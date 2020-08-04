@@ -1,4 +1,4 @@
-import { startCPU } from '@dazn/chaos-squirrel-cpu';
+import { startCPU } from '@dazn/chaos-squirrel-attack-cpu';
 import './fork';
 
 describe('when a message is received', () => {
