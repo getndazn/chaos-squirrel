@@ -1,0 +1,31 @@
+{
+  "name": "@dazn/chaos-squirrel-runner",
+  "version": "0.1.0",
+  "description": "Chaos Squirrel - Runner",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc",
+    "build:watch": "tsc -w",
+    "test": "jest"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/chaos-squirrel.git"
+  },
+  "author": "Simon Tabor <simon.tabor@dazn.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/getndazn/chaos-squirrel/issues"
+  },
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner#readme",
+  "dependencies": {},
+  "publishConfig": {
+    "@dazn:registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  },
+  "devDependencies": {}
+}
