@@ -11,13 +11,11 @@ interface PossibleAttack {
 
 interface RunnerConfig {
   probability?: number;
-  exclusive?: boolean;
   possibleAttacks?: PossibleAttack[];
 }
 
 const runner = async ({
   probability = 1,
-  // exclusive = true,
   possibleAttacks = [],
 }: RunnerConfig): Promise<{ stop: () => void }> => {
   const random = Math.random();

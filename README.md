@@ -27,9 +27,6 @@ const attacks = chaosRunner({
   // Set a global probability. This defaults to 1, meaning every request is open to chaos
   // Set to 0 to disable all chaos
   probability: 1,
-  // Set to false to allow more than 1 concurrent attack to run
-  // Note this may cause some pretty extreme chaos for unlucky requests
-  exclusive: true,
   possibleAttacks: [
     {
       name: 'cpu',
