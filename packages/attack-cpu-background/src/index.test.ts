@@ -1,4 +1,4 @@
-import { startCPUBackground } from './';
+import startCPUBackground from './';
 import child_process, { ChildProcess } from 'child_process';
 
 const sendFn = jest.fn();

@@ -1,4 +1,4 @@
-import { startOpenFiles } from './';
+import startOpenFiles from './';
 import { promises as fs } from 'fs';
 import { tmpdir } from 'os';
 import { join as pathJoin } from 'path';

@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import { join as pathJoin } from 'path';
 import { tmpdir } from 'os';
 
-export const startOpenFiles = async ({ number = 1000 } = {}): Promise<{
+const startOpenFiles = async ({ number = 1000 } = {}): Promise<{
   stop: () => Promise<void>;
 }> => {
   const directory = await fs.mkdtemp(pathJoin(tmpdir(), 'open-files-'));
@@ -18,3 +18,5 @@ export const startOpenFiles = async ({ number = 1000 } = {}): Promise<{
     },
   };
 };
+
+export = startOpenFiles;

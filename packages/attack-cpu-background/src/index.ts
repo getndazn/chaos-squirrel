@@ -1,6 +1,6 @@
 import { fork, ChildProcess } from 'child_process';
 
-export const startCPUBackground = ({ runTime = Infinity, threads = 4 } = {}): {
+const startCPUBackground = ({ runTime = Infinity, threads = 4 } = {}): {
   stop: () => void;
 } => {
   const workers: ChildProcess[] = [];
@@ -20,3 +20,5 @@ export const startCPUBackground = ({ runTime = Infinity, threads = 4 } = {}): {
     },
   };
 };
+
+export = startCPUBackground;

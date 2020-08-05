@@ -1,4 +1,4 @@
-import { startCPU } from './';
+import startCPU from './';
 
 describe('when allowLoopEvery is set to 10ms', () => {
   it('blocks CPU until each allowLoopEvery interval is reached', (done) => {

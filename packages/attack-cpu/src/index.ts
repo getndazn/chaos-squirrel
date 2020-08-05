@@ -15,7 +15,7 @@ const getNextUntil = (
   return { until: lastRun ? runUntil : nextTick, lastRun };
 };
 
-export const startCPU = ({ runTime = Infinity, allowLoopEvery = 1000 } = {}): {
+const startCPU = ({ runTime = Infinity, allowLoopEvery = 1000 } = {}): {
   stop: () => void;
 } => {
   let stopped = false;
@@ -40,3 +40,5 @@ export const startCPU = ({ runTime = Infinity, allowLoopEvery = 1000 } = {}): {
     },
   };
 };
+
+export = startCPU;

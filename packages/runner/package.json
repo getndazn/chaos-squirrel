@@ -27,5 +27,7 @@
     "@dazn:registry": "https://registry.npmjs.org/",
     "access": "restricted"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@dazn/chaos-squirrel-attack-cpu": "^0.1.0"
+  }
 }
