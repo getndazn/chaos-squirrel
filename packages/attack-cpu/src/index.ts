@@ -23,12 +23,6 @@ class CPUAttack {
     this.allowLoopEvery = allowLoopEvery;
   }
 
-  // static start(opts: CPUAttackOptions): CPUAttack {
-  //   const attack = new CPUAttack(opts);
-  //   attack.start();
-  //   return attack;
-  // }
-
   start(): void {
     const runUntil = Date.now() + this.runTime;
 
