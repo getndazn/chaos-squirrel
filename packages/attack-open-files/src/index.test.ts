@@ -53,3 +53,15 @@ describe('when stopped before completing opening the files', () => {
     expect(closeFn).toHaveBeenCalledTimes(10);
   });
 });
+
+describe('.configure', () => {
+  it('returns a function which creates a new attack with the given options', () => {
+    const createAttack = OpenFilesAttack.configure({
+      number: 1,
+    });
+    expect(createAttack).toEqual(expect.any(Function));
+    const attack = createAttack();
+    expect(attack).toBeInstanceOf(OpenFilesAttack);
+    expect(attack.number).toBe(1);
+  });
+});

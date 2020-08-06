@@ -4,6 +4,13 @@ interface CPUAttackOptions {
 }
 
 class CPUAttack {
+  static configure(opts: CPUAttackOptions): () => CPUAttack {
+    return () => {
+      const attack = new CPUAttack(opts);
+      return attack;
+    };
+  }
+
   runTime: number;
   allowLoopEvery: number;
   stopped = false;

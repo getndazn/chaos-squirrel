@@ -1,10 +1,10 @@
-import AttackCPU from './';
+import CPUAttack from './';
 
 describe('when allowLoopEvery is set to 10ms', () => {
   it('blocks CPU until each allowLoopEvery interval is reached', (done) => {
     const start = Date.now();
 
-    const attack = new AttackCPU({ allowLoopEvery: 10 });
+    const attack = new CPUAttack({ allowLoopEvery: 10 });
     attack.start();
 
     setImmediate(() => {
@@ -23,7 +23,7 @@ describe('when runTime is set to 10ms', () => {
   it('stops when the runTime is passed', (done) => {
     const start = Date.now();
 
-    const attack = new AttackCPU({ runTime: 10 });
+    const attack = new CPUAttack({ runTime: 10 });
     attack.start();
 
     setImmediate(() => {
@@ -41,7 +41,7 @@ describe('when defaults are used', () => {
   it('runs until stopped, allowing one event loop every second', (done) => {
     const start = Date.now();
 
-    const attack = new AttackCPU();
+    const attack = new CPUAttack();
     attack.start();
 
     setImmediate(() => {
@@ -61,5 +61,17 @@ describe('when defaults are used', () => {
         done();
       });
     });
+  });
+});
+
+describe('.configure', () => {
+  it('returns a function which creates a new attack with the given options', () => {
+    const createAttack = CPUAttack.configure({
+      allowLoopEvery: 5,
+    });
+    expect(createAttack).toEqual(expect.any(Function));
+    const attack = createAttack();
+    expect(attack).toBeInstanceOf(CPUAttack);
+    expect(attack.allowLoopEvery).toBe(5);
   });
 });

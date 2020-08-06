@@ -7,6 +7,13 @@ interface OpenFilesAttackOptions {
 }
 
 class OpenFilesAttack {
+  static configure(opts: OpenFilesAttackOptions): () => OpenFilesAttack {
+    return () => {
+      const attack = new OpenFilesAttack(opts);
+      return attack;
+    };
+  }
+
   number: number;
   stopped = false;
   private openFiles: fs.FileHandle[] = [];

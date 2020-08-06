@@ -29,3 +29,15 @@ describe('when stop is called', () => {
     expect(killFn).toHaveBeenCalledTimes(4);
   });
 });
+
+describe('.configure', () => {
+  it('returns a function which creates a new attack with the given options', () => {
+    const createAttack = BackgroundCPUAttack.configure({
+      threads: 1,
+    });
+    expect(createAttack).toEqual(expect.any(Function));
+    const attack = createAttack();
+    expect(attack).toBeInstanceOf(BackgroundCPUAttack);
+    expect(attack.threads).toBe(1);
+  });
+});

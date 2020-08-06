@@ -6,6 +6,15 @@ interface BackgroundCPUAttackOptions {
 }
 
 class BackgroundCPUAttack {
+  static configure(
+    opts: BackgroundCPUAttackOptions
+  ): () => BackgroundCPUAttack {
+    return () => {
+      const attack = new BackgroundCPUAttack(opts);
+      return attack;
+    };
+  }
+
   runTime: number;
   threads: number;
   private workers: ChildProcess[] = [];

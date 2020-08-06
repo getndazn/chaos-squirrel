@@ -1,132 +1,106 @@
-import runner from './';
-import startCPU from '@dazn/chaos-squirrel-attack-cpu';
+import Runner from './';
+import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
 
 describe('when probability is 0', () => {
-  it('never runs anything', async () => {
+  it('never runs anything', () => {
     let times = 1000;
     const start = jest.fn();
-    const runs = [];
+    const runners: Runner[] = [];
+
     while (times--) {
-      runs.push(
-        runner({
+      runners.push(
+        new Runner({
           probability: 0,
           possibleAttacks: [
             {
-              name: 'test',
               probability: 1,
-              start,
+              createAttack: () => ({ start, stop: jest.fn() }),
             },
           ],
         })
       );
     }
-    const attacks = await Promise.all(runs);
-    for (const attack of attacks) {
-      expect(attack.stop).toEqual(expect.any(Function));
+
+    runners.map((r) => r.start());
+    for (const runner of runners) {
+      expect(runner.attack).toBeUndefined();
     }
     expect(start).not.toHaveBeenCalled();
   });
 });
 
 describe('when there are no possible attacks', () => {
-  it('returns a stop function', async () => {
-    const attack = await runner({
+  it('does not run any attacks', () => {
+    const runner = new Runner({
       possibleAttacks: [],
     });
-
-    expect(attack.stop).toEqual(expect.any(Function));
-    attack.stop();
-  });
-});
-
-describe('when there is a custom attack', () => {
-  describe('when using sync functions', () => {
-    it('runs the attack', async () => {
-      const start = jest.fn();
-      const stop = jest.fn();
-      start.mockReturnValue({ stop });
-
-      const attack = await runner({
-        possibleAttacks: [
-          {
-            name: 'custom',
-            probability: 1,
-            start,
-          },
-        ],
-      });
-
-      expect(start).toHaveBeenCalledTimes(1);
-      attack.stop();
-      expect(stop).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('when using async functions', () => {
-    it('runs the attack', async () => {
-      expect.assertions(1);
-
-      const attack = await runner({
-        possibleAttacks: [
-          {
-            name: 'custom',
-            probability: 1,
-            start: async () => {
-              return {
-                stop: async () => {
-                  expect(true).toBe(true);
-                },
-              };
-            },
-          },
-        ],
-      });
-
-      attack.stop();
-    });
+    runner.start();
+    expect(runner.attack).toBeUndefined();
+    runner.stop();
   });
 });
 
 describe('when random does not match any attacks', () => {
-  it('returns a stop function without running any', async () => {
-    const start = jest.fn();
-    const stop = jest.fn();
-    start.mockReturnValue({ stop });
+  it('does not run any attacks', () => {
+    const createAttack = jest.fn().mockReturnValue({
+      start: jest.fn(),
+      stop: jest.fn(),
+    });
 
-    jest.spyOn(Math, 'random').mockReturnValue(0.99);
-
-    const attack = await runner({
+    const runner = new Runner({
       possibleAttacks: [
         {
-          name: 'custom',
           probability: 0.1,
-          start,
+          createAttack,
         },
         {
-          name: 'custom2',
           probability: 0.89,
-          start,
+          createAttack,
         },
       ],
     });
 
-    expect(start).not.toHaveBeenCalled();
-    expect(attack.stop).toEqual(expect.any(Function));
+    jest.spyOn(Math, 'random').mockReturnValue(0.99);
+    runner.start();
+
+    expect(createAttack).not.toHaveBeenCalled();
+    expect(runner.attack).toBeUndefined();
   });
 });
 
-describe('when a standard attack is specified', () => {
-  it('runs the attack', async () => {
-    const attack = await runner({
+describe('when the attack matches', () => {
+  it('runs the attack', () => {
+    jest.spyOn(CPUAttack.prototype, 'start').mockReturnValue(undefined);
+    jest.spyOn(CPUAttack.prototype, 'stop').mockReturnValue(undefined);
+
+    const runner = new Runner({
       possibleAttacks: [
         {
-          name: 'cpu',
           probability: 1,
+          createAttack: () => new CPUAttack(),
         },
       ],
     });
+    runner.start();
+    expect(runner.attack).toBeInstanceOf(CPUAttack);
+    expect(CPUAttack.prototype.start).toHaveBeenCalledTimes(1);
+    runner.stop();
+    expect(CPUAttack.prototype.stop).toHaveBeenCalledTimes(1);
+  });
+});
 
-    expect(startCPU).toHaveBeenCalledTimes(1);
-    attack.stop();
+describe('when using the configure interfaces', () => {
+  it('returns a function which creates new Runner instances', () => {
+    const createRunner = Runner.configure({
+      probability: 0,
+      possibleAttacks: [],
+    });
+    const runner1 = createRunner();
+    const runner2 = createRunner();
+    expect(runner1).toBeInstanceOf(Runner);
+    expect(runner2).toBeInstanceOf(Runner);
+    expect(runner1.probability).toBe(0);
+    expect(runner2.probability).toBe(0);
+    expect(runner1).not.toBe(runner2);
   });
 });
