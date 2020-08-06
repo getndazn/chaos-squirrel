@@ -15,37 +15,43 @@ JavaScript Chaos
 ## Usage via Runner
 
 ```ts
-import chaosRunner from '@dazn/chaos-squirrel-runner';
-const attack = await chaosRunner({
+import ChaosRunner from '@dazn/chaos-squirrel-runner';
+import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
+
+const runner = new ChaosRunner({
   // Set a global probability. This defaults to 1, meaning every request is open to chaos
   // Set to 0 to disable all chaos
   probability: 1,
+
   possibleAttacks: [
     {
-      name: 'cpu',
-      probability: 0.1,
+      probability: 0.01,
+      createAttack: CPUAttack.configure({ allowLoopEvery: 10 })
     },
     {
-      name: 'open-files',
-      probability: 0.1,
-    },
-    {
-      name: 'my-custom-chaos',
-      probability: 0.2,
-      start: () => {
-        // do attack
-
+      probability: 0.02,
+      createAttack: () => {
         return {
+          start: () => {
+            // do a custom attack!
+          },
           stop: () => {
-            // stop attack
+            // stop the attack
           }
         }
       }
+    },
+    {
+      probability: 0.03,
+      createAttack: () => new CPUAttack({ allowLoopEvery: 100 })
     }
-  ],
-});
+  ]
+})
 
+// start the chaos!
+runner.start();
 // do things
 
-await attack.stop();
+// stop the chaos
+runner.stop();
 ```
