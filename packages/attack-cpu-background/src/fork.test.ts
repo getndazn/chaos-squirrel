@@ -1,4 +1,5 @@
-import startCPU from '@dazn/chaos-squirrel-attack-cpu';
+jest.mock('@dazn/chaos-squirrel-attack-cpu');
+import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
 import './fork';
 
 describe('when a message is received', () => {
@@ -6,10 +7,11 @@ describe('when a message is received', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     process.emit('message', {});
-    expect(startCPU).toHaveBeenCalledTimes(1);
-    expect(startCPU).toHaveBeenCalledWith({
+    expect(CPUAttack).toHaveBeenCalledTimes(1);
+    expect(CPUAttack).toHaveBeenCalledWith({
       runTime: Infinity,
       allowLoopEvery: Infinity,
     });
+    expect(CPUAttack.prototype.start).toHaveBeenCalledTimes(1);
   });
 });

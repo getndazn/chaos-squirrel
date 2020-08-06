@@ -1,24 +1,38 @@
 import { fork, ChildProcess } from 'child_process';
 
-const startCPUBackground = ({ runTime = Infinity, threads = 4 } = {}): {
-  stop: () => void;
-} => {
-  const workers: ChildProcess[] = [];
-  for (let i = 0; i < threads; i++) {
-    const worker = fork(`${__dirname}/fork.js`);
-    worker.send({
-      runTime,
-    });
-    workers.push(worker);
+interface BackgroundCPUAttackOptions {
+  runTime?: number;
+  threads?: number;
+}
+
+class BackgroundCPUAttack {
+  runTime: number;
+  threads: number;
+  private workers: ChildProcess[] = [];
+
+  constructor({
+    runTime = Infinity,
+    threads = 4,
+  }: BackgroundCPUAttackOptions = {}) {
+    this.runTime = runTime;
+    this.threads = threads;
   }
 
-  return {
-    stop: () => {
-      workers.forEach((worker) => {
-        worker.kill();
+  start(): void {
+    for (let i = 0; i < this.threads; i++) {
+      const worker = fork(`${__dirname}/fork.js`);
+      worker.send({
+        runTime: this.runTime,
       });
-    },
-  };
-};
+      this.workers.push(worker);
+    }
+  }
 
-export = startCPUBackground;
+  stop(): void {
+    this.workers.forEach((worker) => {
+      worker.kill();
+    });
+  }
+}
+
+export = BackgroundCPUAttack;
