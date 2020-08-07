@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-open-files",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Chaos Squirrel - Attack - Open Files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,7 +22,6 @@
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-open-files#readme",
-  "dependencies": {},
   "publishConfig": {
     "@dazn:registry": "https://registry.npmjs.org/",
     "access": "restricted"
