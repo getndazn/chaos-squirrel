@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dazn/chaos-squirrel-cpu": "0.0.0"
+    "@dazn/chaos-squirrel-attack-cpu": "^0.2.0",
+    "@dazn/chaos-squirrel-runner": "^0.2.0"
   }
 }
