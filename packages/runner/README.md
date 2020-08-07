@@ -1,18 +1,8 @@
-# Chaos Squirrel
+# @dazn/chaos-squirrel-runner
 
-JavaScript Chaos
+Run chaos attacks!
 
-## Packages
-
-- [Runner](./packages/runner) - Determine which attacks to run, and run them
-
-### Attacks
-
-- [CPU](./packages/attack-cpu) - In-process CPU exhaustion
-- [Background CPU](./packages/attack-cpu-background) - Spawn processes which exhaust CPU
-- [Open Files](./packages/attack-open-files) - Open lots of file descriptors to exhaust `ulimit nofile`
-
-## Usage via Runner
+## Usage
 
 ```ts
 import ChaosRunner from '@dazn/chaos-squirrel-runner';
