@@ -15,11 +15,10 @@ JavaScript Chaos
 ## Usage via Runner
 
 ```ts
-
 import ChaosRunner from '@dazn/chaos-squirrel-runner';
 import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
 
-const runner = new ChaosRunner({
+const createRunner = ChaosRunner.configure({
   probability: 1,
   possibleAttacks: [
     {
@@ -32,13 +31,12 @@ const runner = new ChaosRunner({
           start: () => { /* do a custom attack!*/ },
           stop: () => { /* stop the attack */ }
       })
-    },
-    {
-      probability: 0.03,
-      createAttack: () => new CPUAttack({ allowLoopEvery: 100 })
     }
   ]
-})
+});
+
+// a new instance of the runner should be created for each possible chaos run
+const runner = createRunner();
 
 // start the chaos!
 runner.start();
@@ -46,19 +44,20 @@ runner.start();
 
 // stop the chaos
 runner.stop();
+```
 
 ## Runner Arguments
 
 | Parameter       | Type    | Description                                            |
 |-----------------|---------|--------------------------------------------------------|
-| `probability`     | `Number` | A probability range between 0-1. Defaults to `1` which is 100% probability.               |
+| `probability`     | `Number` | A "global" probability range between 0-1. Defaults to `1` which is 100% probability. |
 | `possibleAttacks` | `Array`   | An array of objects of [possible attacks](#possible-attack) that could be initiated  |
 
 ## Possible Attack
 
 | Parameter    | Type     | Description                                                                |
 |--------------|----------|----------------------------------------------------------------------------|
-| `probability`  | `Boolean`  | Sets the probability of a specific attack                                  |
+| `probability`  | `Number`  | Sets the probability of a specific attack, the likelihood of any given attack being run is the `global probability * attack probability`                               |
 | `createAttack` | `Function` | Function which returns an attack object exposing a start and stop method.  |
 
 ```
