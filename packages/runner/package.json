@@ -1,7 +1,7 @@
 {
-  "name": "@dazn/chaos-squirrel-cpu",
+  "name": "@dazn/chaos-squirrel-runner",
   "version": "0.1.0",
-  "description": "Chaos Squirrel - CPU usage",
+  "description": "Chaos Squirrel - Runner",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,9 +21,13 @@
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
-  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/cpu#readme",
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner#readme",
+  "dependencies": {},
   "publishConfig": {
     "@dazn:registry": "https://registry.npmjs.org/",
     "access": "restricted"
+  },
+  "devDependencies": {
+    "@dazn/chaos-squirrel-attack-cpu": "^0.1.0"
   }
 }
