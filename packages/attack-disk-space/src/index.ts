@@ -7,9 +7,6 @@ interface DiskSpaceAttackOptions {
   size?: number;
 }
 
-const tmp = tmpdir();
-const getBestBlkSize = fs.stat(tmp);
-
 class DiskSpaceAttack {
   static configure(opts: DiskSpaceAttackOptions): () => DiskSpaceAttack {
     return () => {
@@ -28,22 +25,22 @@ class DiskSpaceAttack {
   }
 
   async start(): Promise<void> {
-    const directory = await fs.mkdtemp(pathJoin(tmp, 'disk-space-'));
+    const directory = await fs.mkdtemp(pathJoin(tmpdir(), 'disk-space-'));
     this.file = `${directory}/big-file.tmp`;
 
-    let { blksize } = await getBestBlkSize;
-
-    if (this.size < blksize) {
+    // default for most OS' and the most performant
+    let blockSize = 4096;
+    if (this.size < blockSize) {
       // tiny attack! probably pointless but let's support it
-      blksize = this.size;
+      blockSize = this.size;
     }
 
     const spawned = spawn('dd', [
       'if=/dev/zero',
       `of=${this.file}`,
-      // as close to the desired size as possible, but may be 1/2 blksize more or less
-      `count=${Math.round(this.size / blksize)}`,
-      `bs=${blksize}`,
+      // as close to the desired size as possible, but may be 1/2 blockSize more or less
+      `count=${Math.round(this.size / blockSize)}`,
+      `bs=${blockSize}`,
     ]);
 
     const code = await new Promise((resolve) => {
