@@ -26,7 +26,7 @@ describe('when given defaults', () => {
     const attack = new DiskSpaceAttack();
     await attack.start();
     const { size } = await fs.stat(attack.file as string);
-    expect(size).toBe(1000000000);
+    expect(size).toBe(1000001536);
     await attack.stop();
   }, 10000);
 });
