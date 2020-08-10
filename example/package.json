@@ -1,0 +1,16 @@
+{
+  "name": "chaos-squirrel-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dazn/chaos-squirrel-attack-cpu": "^0.2.0",
+    "@dazn/chaos-squirrel-runner": "^0.2.0"
+  }
+}
