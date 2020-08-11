@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@dazn/chaos-squirrel-runner": "^0.2.0",
-    "aws-lambda": "^1.0.6",
-    "middy": "^0.36.0"
+    "@middy/core": "^1.1.0",
+    "@types/aws-lambda": "^8.10.60"
   }
 }

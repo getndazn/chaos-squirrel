@@ -1,4 +1,4 @@
-import { MiddlewareObject } from 'middy';
+import middy from '@middy/core';
 import { Context } from 'aws-lambda';
 import Runner from '@dazn/chaos-squirrel-runner';
 
@@ -11,10 +11,12 @@ interface MiddyRunnerOptions {
   wait?: boolean;
 }
 
+type ChaosMiddleware = middy.MiddlewareObject<unknown, unknown, ChaosContext>;
+
 const middleware = ({
   createRunner,
   wait = true,
-}: MiddyRunnerOptions): MiddlewareObject<unknown, unknown, ChaosContext> => {
+}: MiddyRunnerOptions): ChaosMiddleware => {
   const stop = async (runner: Runner | undefined, wait: boolean) => {
     if (runner) {
       const stop = runner.stop();
