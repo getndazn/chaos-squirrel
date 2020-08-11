@@ -1,6 +1,6 @@
 import middleware from './';
 import Runner from '@dazn/chaos-squirrel-runner';
-import { HandlerLambda } from 'middy';
+import middy from '@middy/core';
 
 const runnerConfig = {
   possibleAttacks: [],
@@ -20,7 +20,7 @@ it('returns a before, after and onError function', () => {
 describe('when before is called', () => {
   it('starts a new chaos runner', () => {
     jest.spyOn(Runner.prototype, 'start');
-    m.before!({ context: {} } as HandlerLambda, next);
+    m.before!({ context: {} } as middy.HandlerLambda, next);
     expect(Runner.prototype.start).toHaveBeenCalledTimes(1);
   });
 });
@@ -32,7 +32,7 @@ describe.each([
   describe('when the runner has not been started', () => {
     it('does nothing', () => {
       jest.spyOn(Runner.prototype, 'stop');
-      fn!({ context: {} } as HandlerLambda, next);
+      fn!({ context: {} } as middy.HandlerLambda, next);
       expect(Runner.prototype.stop).not.toHaveBeenCalled();
     });
   });
@@ -41,8 +41,8 @@ describe.each([
     it('stops the runner', () => {
       jest.spyOn(Runner.prototype, 'stop');
       const context = {};
-      m.before!({ context } as HandlerLambda, next);
-      fn!({ context } as HandlerLambda, next);
+      m.before!({ context } as middy.HandlerLambda, next);
+      fn!({ context } as middy.HandlerLambda, next);
       expect(Runner.prototype.stop).toHaveBeenCalledTimes(1);
     });
   });
@@ -79,9 +79,9 @@ describe.each([true, false])('when wait is set to %s', (wait) => {
     );
 
     const context = {};
-    await m.before!({ context } as HandlerLambda, next);
+    await m.before!({ context } as middy.HandlerLambda, next);
     expect(started).toBe(wait ? true : false);
-    await m.after!({ context } as HandlerLambda, next);
+    await m.after!({ context } as middy.HandlerLambda, next);
     expect(stopped).toBe(wait ? true : false);
   });
 });
