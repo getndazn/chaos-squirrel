@@ -2,6 +2,8 @@
 
 Consume lots of disk space. Spawns a `dd` process, so this is unlikely to work on non-unix systems.
 
+Note that AWS Lambda functions have [512 MB disk space available](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html).
+
 ## Usage
 
 ```ts
