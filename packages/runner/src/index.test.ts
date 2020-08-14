@@ -13,7 +13,6 @@ describe('when probability is 0', () => {
           probability: 0,
           possibleAttacks: [
             {
-              probability: 1,
               createAttack: () => ({ start, stop: jest.fn() }),
             },
           ],
@@ -40,7 +39,7 @@ describe('when there are no possible attacks', () => {
   });
 });
 
-describe('when random does not match any attacks', () => {
+describe('when weight is set to 0', () => {
   it('does not run any attacks', () => {
     const createAttack = jest.fn().mockReturnValue({
       start: jest.fn(),
@@ -50,17 +49,17 @@ describe('when random does not match any attacks', () => {
     const runner = new Runner({
       possibleAttacks: [
         {
-          probability: 0.1,
+          weight: 0,
           createAttack,
         },
         {
-          probability: 0.89,
+          weight: 0,
           createAttack,
         },
       ],
     });
 
-    jest.spyOn(Math, 'random').mockReturnValue(0.99);
+    jest.spyOn(Math, 'random').mockReturnValue(0);
     runner.start();
 
     expect(createAttack).not.toHaveBeenCalled();
@@ -76,7 +75,6 @@ describe('when the attack matches', () => {
     const runner = new Runner({
       possibleAttacks: [
         {
-          probability: 1,
           createAttack: () => new CPUAttack(),
         },
       ],
@@ -86,6 +84,32 @@ describe('when the attack matches', () => {
     expect(CPUAttack.prototype.start).toHaveBeenCalledTimes(1);
     runner.stop();
     expect(CPUAttack.prototype.stop).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('when complex weights are defined', () => {
+  it('runs the correct attack', () => {
+    jest.spyOn(CPUAttack.prototype, 'start').mockReturnValue(undefined);
+    jest.spyOn(CPUAttack.prototype, 'stop').mockReturnValue(undefined);
+
+    const runner = new Runner({
+      possibleAttacks: [
+        {
+          weight: 1.5,
+          createAttack: () => new CPUAttack({ allowLoopEvery: 1 }),
+        },
+        {
+          weight: 2.5,
+          createAttack: () => new CPUAttack({ allowLoopEvery: 2 }),
+        },
+      ],
+    });
+    jest.spyOn(Math, 'random').mockReturnValue(0.375);
+    runner.start();
+    expect(runner.attack).toBeInstanceOf(CPUAttack);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    expect(runner.attack.allowLoopEvery).toBe(2);
   });
 });
 

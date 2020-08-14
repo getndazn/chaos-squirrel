@@ -6,7 +6,7 @@ interface Attack {
 }
 
 interface PossibleAttack {
-  probability: number;
+  weight?: number;
   createAttack: () => Attack;
 }
 
@@ -49,20 +49,29 @@ class Runner {
   }
 
   private findAttack(): Attack | undefined {
-    const random = Math.random();
     let probabilityStart = 0;
 
-    for (const attack of this.possibleAttacks) {
+    const sumWeights = this.possibleAttacks.reduce(
+      (prev, { weight = 1 }) => prev + weight,
+      0
+    );
+
+    const weightedRandom = Math.random() * sumWeights;
+
+    for (const { createAttack, weight = 1 } of this.possibleAttacks) {
       // check the probability in ranges so we have a fair distribution
-      const probabilityEnd = probabilityStart + attack.probability;
-      if (random < probabilityStart || random >= probabilityEnd) {
+      const probabilityEnd = probabilityStart + weight;
+      if (
+        weightedRandom < probabilityStart ||
+        weightedRandom >= probabilityEnd
+      ) {
         // TODO: logging https://github.com/getndazn/chaos-squirrel/issues/8
         // `Not running ${attack.name} attack, ${random} is not between ${probabilityStart} - ${probabilityEnd}`,
         probabilityStart = probabilityEnd;
         continue;
       }
 
-      return attack.createAttack();
+      return createAttack();
     }
   }
 }
