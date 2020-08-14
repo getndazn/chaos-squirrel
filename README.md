@@ -11,6 +11,8 @@ JavaScript Chaos
 - [CPU](./packages/attack-cpu) - In-process CPU exhaustion
 - [Background CPU](./packages/attack-cpu-background) - Spawn processes which exhaust CPU
 - [Open Files](./packages/attack-open-files) - Open lots of file descriptors to exhaust `ulimit nofile`
+- [Memory](./packages/attack-memory) - Use lots of memory
+- [Background Memory](./packages/attack-memory-background) - Use lots of memory in a forked process
 
 ## Usage via Runner
 
