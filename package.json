@@ -7,7 +7,7 @@
     "lerna": "lerna",
     "postinstall": "lerna bootstrap",
     "lint": "eslint --ext ts .",
-    "test": "lerna exec -- npm test",
+    "test": "lerna exec --concurrency 1 -- npm test",
     "build": "lerna run build",
     "new-version": "lerna version --conventional-commits --create-release github --yes",
     "publish": "lerna publish from-package --yes"

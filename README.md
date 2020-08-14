@@ -5,6 +5,7 @@ JavaScript Chaos
 ## Packages
 
 - [Runner](./packages/runner) - Determine which attacks to run, and run them
+- [Middy Runner](./packages/runner-middy) - Easily run attacks on Lambdas using [Middy](https://github.com/middyjs/middy)
 
 ### Attacks
 

@@ -1,0 +1,34 @@
+{
+  "name": "@dazn/chaos-squirrel-runner-middy",
+  "version": "0.2.0",
+  "description": "Chaos Squirrel - Runner - Middy",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc",
+    "build:watch": "tsc -w",
+    "test": "jest"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/chaos-squirrel.git"
+  },
+  "author": "Simon Tabor <simon.tabor@dazn.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/getndazn/chaos-squirrel/issues"
+  },
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner-middy#readme",
+  "publishConfig": {
+    "@dazn:registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  },
+  "devDependencies": {
+    "@dazn/chaos-squirrel-runner": "^0.2.0",
+    "@middy/core": "^1.1.0",
+    "@types/aws-lambda": "^8.10.60"
+  }
+}
