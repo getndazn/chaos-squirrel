@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-runner-middy",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Chaos Squirrel - Runner - Middy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
