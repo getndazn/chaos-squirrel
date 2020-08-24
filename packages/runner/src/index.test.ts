@@ -1,6 +1,11 @@
 import Runner from './';
 import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
 
+const debugFn = jest.fn();
+const infoFn = jest.fn();
+jest.spyOn(console, 'debug').mockImplementation(debugFn);
+jest.spyOn(console, 'info').mockImplementation(infoFn);
+
 describe('when probability is 0', () => {
   it('never runs anything', () => {
     let times = 1000;
@@ -25,6 +30,16 @@ describe('when probability is 0', () => {
       expect(runner.attack).toBeUndefined();
     }
     expect(start).not.toHaveBeenCalled();
+    expect(debugFn).toHaveBeenCalledTimes(1000);
+    expect(debugFn).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /^Not running any attacks, 0\.\d+ is greater than 0$/
+      ),
+      {
+        globalRandom: expect.any(Number),
+        probability: 0,
+      }
+    );
   });
 });
 
@@ -36,6 +51,13 @@ describe('when there are no possible attacks', () => {
     runner.start();
     expect(runner.attack).toBeUndefined();
     runner.stop();
+
+    expect(
+      debugFn
+    ).toHaveBeenCalledWith(
+      `Not running any attacks, no attack matched in findAttack`,
+      { weightedRandom: 0, sumWeights: 0 }
+    );
   });
 });
 
@@ -64,6 +86,13 @@ describe('when weight is set to 0', () => {
 
     expect(createAttack).not.toHaveBeenCalled();
     expect(runner.attack).toBeUndefined();
+
+    expect(
+      debugFn
+    ).toHaveBeenCalledWith(
+      'Not running any attacks, no attack matched in findAttack',
+      { weightedRandom: 0, sumWeights: 0 }
+    );
   });
 });
 
@@ -82,8 +111,17 @@ describe('when the attack matches', () => {
     runner.start();
     expect(runner.attack).toBeInstanceOf(CPUAttack);
     expect(CPUAttack.prototype.start).toHaveBeenCalledTimes(1);
+
+    expect(infoFn).toHaveBeenCalledWith('Starting attack: CPUAttack', {
+      attackName: 'CPUAttack',
+    });
     runner.stop();
     expect(CPUAttack.prototype.stop).toHaveBeenCalledTimes(1);
+
+    expect(infoFn).toHaveBeenCalledWith('Stopping attack: CPUAttack', {
+      attackName: 'CPUAttack',
+      runTime: expect.any(Number),
+    });
   });
 });
 
@@ -126,5 +164,24 @@ describe('when using the configure interfaces', () => {
     expect(runner1.probability).toBe(0);
     expect(runner2.probability).toBe(0);
     expect(runner1).not.toBe(runner2);
+  });
+});
+
+describe('when setting a custom logger', () => {
+  it('uses that function for logs', () => {
+    const logger = jest.fn();
+    const createRunner = Runner.configure({
+      probability: 1,
+      possibleAttacks: [],
+      logger,
+    });
+    const runner = createRunner();
+    runner.start();
+    expect(logger).toHaveBeenCalledWith(
+      'debug',
+      'Not running any attacks, no attack matched in findAttack',
+      { weightedRandom: 0, sumWeights: 0 }
+    );
+    expect(debugFn).not.toHaveBeenCalled();
   });
 });
