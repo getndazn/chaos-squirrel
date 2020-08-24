@@ -10,9 +10,16 @@ interface PossibleAttack {
   createAttack: () => Attack;
 }
 
+type LogFn = (
+  level: 'debug' | 'info',
+  message: string,
+  details: Record<string, unknown>
+) => void;
+
 interface RunnerConfig {
   probability?: number;
   possibleAttacks: PossibleAttack[];
+  logger?: LogFn;
 }
 
 class Runner {
@@ -23,28 +30,48 @@ class Runner {
   probability: number;
   possibleAttacks: PossibleAttack[];
   attack?: Attack;
+  logger: LogFn;
+  private attackStarted?: number;
 
-  constructor({ probability = 1, possibleAttacks }: RunnerConfig) {
+  constructor({
+    probability = 1,
+    possibleAttacks,
+    logger = (level, ...args) => console[level](...args),
+  }: RunnerConfig) {
     this.probability = probability;
     this.possibleAttacks = possibleAttacks;
+    this.logger = logger;
   }
 
   start(): VoidOrPromise {
     const globalRandom = Math.random();
     if (globalRandom > this.probability) {
-      // TODO: logging https://github.com/getndazn/chaos-squirrel/issues/8
-      // `Not running any attacks, ${globalRandom} is not less than ${probability}`,
+      this.logger(
+        'debug',
+        `Not running any attacks, ${globalRandom} is greater than ${this.probability}`,
+        { globalRandom, probability: this.probability }
+      );
       return;
     }
 
     this.attack = this.findAttack();
-    if (!this.attack) return;
+    if (!this.attack) return; // logging handled in findAttack fn
 
+    this.logger('info', `Starting attack: ${this.attack.constructor.name}`, {
+      attackName: this.attack.constructor.name,
+    });
+    this.attackStarted = Date.now();
     return this.attack.start();
   }
 
   stop(): VoidOrPromise {
     if (!this.attack) return;
+    this.logger('info', `Stopping attack: ${this.attack.constructor.name}`, {
+      attackName: this.attack.constructor.name,
+      // attackStarted will be set immediately after this.attack is set, so this is safe
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      runTime: Date.now() - this.attackStarted!,
+    });
     return this.attack.stop();
   }
 
@@ -73,6 +100,12 @@ class Runner {
 
       return createAttack();
     }
+
+    this.logger(
+      'debug',
+      'Not running any attacks, no attack matched in findAttack',
+      { weightedRandom, sumWeights }
+    );
   }
 }
 
