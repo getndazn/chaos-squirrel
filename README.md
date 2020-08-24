@@ -21,6 +21,8 @@ JavaScript Chaos
 ```ts
 import ChaosRunner from '@dazn/chaos-squirrel-runner';
 import CPUAttack from '@dazn/chaos-squirrel-attack-cpu';
+// in ES5/CommonJS
+// const { default: CPUAttack } = require('@dazn/chaos-squirrel-attack-cpu');
 
 const createRunner = ChaosRunner.configure({
   probability: 1,

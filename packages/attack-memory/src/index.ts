@@ -2,11 +2,11 @@ import buffer from 'buffer';
 
 const BUF_LENGTH = buffer.constants.MAX_LENGTH;
 
-interface MemoryAttackOptions {
+export interface MemoryAttackOptions {
   size?: number;
 }
 
-class MemoryAttack {
+export default class MemoryAttack {
   static configure(opts: MemoryAttackOptions): () => MemoryAttack {
     return () => {
       const attack = new MemoryAttack(opts);
@@ -35,5 +35,3 @@ class MemoryAttack {
     this.buffers = [];
   }
 }
-
-export = MemoryAttack;

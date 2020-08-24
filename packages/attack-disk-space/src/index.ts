@@ -3,11 +3,11 @@ import { join as pathJoin } from 'path';
 import { tmpdir } from 'os';
 import { spawn } from 'child_process';
 
-interface DiskSpaceAttackOptions {
+export interface DiskSpaceAttackOptions {
   size?: number;
 }
 
-class DiskSpaceAttack {
+export default class DiskSpaceAttack {
   static configure(opts: DiskSpaceAttackOptions): () => DiskSpaceAttack {
     return () => {
       const attack = new DiskSpaceAttack(opts);
@@ -67,5 +67,3 @@ class DiskSpaceAttack {
     }
   }
 }
-
-export = DiskSpaceAttack;

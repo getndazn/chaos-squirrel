@@ -2,18 +2,18 @@ import middy from '@middy/core';
 import { Context } from 'aws-lambda';
 import Runner from '@dazn/chaos-squirrel-runner';
 
-interface ChaosContext extends Context {
+export interface ChaosContext extends Context {
   chaosRunner?: Runner;
 }
 
-interface MiddyRunnerOptions {
+export interface MiddyRunnerOptions {
   createRunner: () => Runner;
   wait?: boolean;
 }
 
 type ChaosMiddleware = middy.MiddlewareObject<unknown, unknown, ChaosContext>;
 
-const middleware = ({
+export default ({
   createRunner,
   wait = true,
 }: MiddyRunnerOptions): ChaosMiddleware => {
@@ -40,5 +40,3 @@ const middleware = ({
     },
   };
 };
-
-export = middleware;

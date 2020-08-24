@@ -2,11 +2,11 @@ import { promises as fs } from 'fs';
 import { join as pathJoin } from 'path';
 import { tmpdir } from 'os';
 
-interface OpenFilesAttackOptions {
+export interface OpenFilesAttackOptions {
   number?: number;
 }
 
-class OpenFilesAttack {
+export default class OpenFilesAttack {
   static configure(opts: OpenFilesAttackOptions): () => OpenFilesAttack {
     return () => {
       const attack = new OpenFilesAttack(opts);
@@ -49,5 +49,3 @@ class OpenFilesAttack {
     return opened;
   }
 }
-
-export = OpenFilesAttack;
