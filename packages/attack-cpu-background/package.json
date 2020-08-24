@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-cpu-background",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Chaos Squirrel - Attack - Background CPU usage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-cpu-background#readme",
   "dependencies": {
-    "@dazn/chaos-squirrel-attack-cpu": "^0.6.0"
+    "@dazn/chaos-squirrel-attack-cpu": "^0.7.0"
   },
   "publishConfig": {
     "@dazn:registry": "https://registry.npmjs.org/",
