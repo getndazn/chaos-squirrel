@@ -1,9 +1,9 @@
-interface CPUAttackOptions {
+export interface CPUAttackOptions {
   runTime?: number;
   allowLoopEvery?: number;
 }
 
-class CPUAttack {
+export default class CPUAttack {
   static configure(opts: CPUAttackOptions): () => CPUAttack {
     return () => {
       const attack = new CPUAttack(opts);
@@ -58,5 +58,3 @@ class CPUAttack {
     return { until: lastRun ? runUntil : nextTick, lastRun };
   }
 }
-
-export = CPUAttack;

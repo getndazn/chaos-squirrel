@@ -1,11 +1,11 @@
 import { fork, ChildProcess } from 'child_process';
 
-interface BackgroundCPUAttackOptions {
+export interface BackgroundCPUAttackOptions {
   runTime?: number;
   threads?: number;
 }
 
-class BackgroundCPUAttack {
+export default class BackgroundCPUAttack {
   static configure(
     opts: BackgroundCPUAttackOptions
   ): () => BackgroundCPUAttack {
@@ -43,5 +43,3 @@ class BackgroundCPUAttack {
     });
   }
 }
-
-export = BackgroundCPUAttack;

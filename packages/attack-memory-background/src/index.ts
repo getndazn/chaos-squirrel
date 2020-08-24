@@ -1,11 +1,11 @@
 import { fork, ChildProcess } from 'child_process';
 import buffer from 'buffer';
 
-interface BackgroundMemoryAttackOptions {
+export interface BackgroundMemoryAttackOptions {
   size?: number;
 }
 
-class BackgroundMemoryAttack {
+export default class BackgroundMemoryAttack {
   static configure(
     opts: BackgroundMemoryAttackOptions
   ): () => BackgroundMemoryAttack {
@@ -35,5 +35,3 @@ class BackgroundMemoryAttack {
     if (this.worker) this.worker.kill();
   }
 }
-
-export = BackgroundMemoryAttack;

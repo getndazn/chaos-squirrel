@@ -1,28 +1,28 @@
 type VoidOrPromise = void | Promise<void>;
 
-interface Attack {
+export interface Attack {
   start: () => VoidOrPromise;
   stop: () => VoidOrPromise;
 }
 
-interface PossibleAttack {
+export interface PossibleAttack {
   weight?: number;
   createAttack: () => Attack;
 }
 
-type LogFn = (
+export type Logger = (
   level: 'debug' | 'info',
   message: string,
   details: Record<string, unknown>
 ) => void;
 
-interface RunnerConfig {
+export interface RunnerConfig {
   probability?: number;
   possibleAttacks: PossibleAttack[];
-  logger?: LogFn;
+  logger?: Logger;
 }
 
-class Runner {
+export default class Runner {
   static configure(opts: RunnerConfig): () => Runner {
     return () => new Runner(opts);
   }
@@ -30,7 +30,7 @@ class Runner {
   probability: number;
   possibleAttacks: PossibleAttack[];
   attack?: Attack;
-  logger: LogFn;
+  logger: Logger;
   private attackStarted?: number;
 
   constructor({
@@ -108,5 +108,3 @@ class Runner {
     );
   }
 }
-
-export = Runner;
