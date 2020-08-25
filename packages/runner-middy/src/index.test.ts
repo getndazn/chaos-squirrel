@@ -1,9 +1,12 @@
-import middleware from './';
+import middleware, { ChaosContext } from './';
 import Runner from '@dazn/chaos-squirrel-runner';
 import middy from '@middy/core';
 
+const logger = jest.fn();
+
 const runnerConfig = {
   possibleAttacks: [],
+  logger,
 };
 
 // middy types seem to expect this even when using async
@@ -83,5 +86,26 @@ describe.each([true, false])('when wait is set to %s', (wait) => {
     expect(started).toBe(wait ? true : false);
     await m.after!({ context } as middy.HandlerLambda, next);
     expect(stopped).toBe(wait ? true : false);
+  });
+});
+
+describe('when configured with a createLogger option', () => {
+  it('overwrites any runner logger with the created logger', async () => {
+    const middlewareLogger = jest.fn();
+    const context = {};
+    const m = middleware({
+      createRunner: Runner.configure({ ...runnerConfig, probability: 0 }),
+      createLogger: (calledContext) => {
+        // assert context is passed to function so we can use correlationIds
+        expect(calledContext).toBe(context);
+        return middlewareLogger;
+      },
+    });
+
+    await m.before!({ context } as middy.HandlerLambda, next);
+    expect(logger).not.toHaveBeenCalled();
+    expect((context as ChaosContext).chaosRunner!.logger).toBe(
+      middlewareLogger
+    );
   });
 });

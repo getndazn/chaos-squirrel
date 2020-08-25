@@ -1,6 +1,6 @@
 import middy from '@middy/core';
 import { Context } from 'aws-lambda';
-import Runner from '@dazn/chaos-squirrel-runner';
+import Runner, { Logger } from '@dazn/chaos-squirrel-runner';
 
 export interface ChaosContext extends Context {
   chaosRunner?: Runner;
@@ -9,6 +9,7 @@ export interface ChaosContext extends Context {
 export interface MiddyRunnerOptions {
   createRunner: () => Runner;
   wait?: boolean;
+  createLogger?: (context: Context) => Logger;
 }
 
 type ChaosMiddleware = middy.MiddlewareObject<unknown, unknown, ChaosContext>;
@@ -16,6 +17,7 @@ type ChaosMiddleware = middy.MiddlewareObject<unknown, unknown, ChaosContext>;
 export default ({
   createRunner,
   wait = true,
+  createLogger,
 }: MiddyRunnerOptions): ChaosMiddleware => {
   const stop = async (runner: Runner | undefined, wait: boolean) => {
     if (runner) {
@@ -28,6 +30,9 @@ export default ({
     before: async (handler) => {
       const context = handler.context;
       const runner = createRunner();
+      if (createLogger) {
+        runner.logger = createLogger(context);
+      }
       context.chaosRunner = runner;
       const start = runner.start();
       if (wait) await start;
