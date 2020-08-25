@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/getndazn/chaos-squirrel/compare/v0.8.0...v0.9.0) (2020-08-25)
+
+
+### Features
+
+* **runner-middy:** allow creating a custom logger for each context ([406ccf1](https://github.com/getndazn/chaos-squirrel/commit/406ccf1fbbe69c9bae48261c324ebc25368e3ac2))
+
+
+
+
+
 # [0.8.0](https://github.com/getndazn/chaos-squirrel/compare/v0.7.0...v0.8.0) (2020-08-24)
 
 
