@@ -1,0 +1,26 @@
+name: on-push workflow
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run postinstall
+      - run: npm run build
+      - run: npm audit --production
+      - run: npm run lint
+  test:
+    needs: [build]
+    strategy:
+      matrix:
+        node_version: [10, 12]
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm test
