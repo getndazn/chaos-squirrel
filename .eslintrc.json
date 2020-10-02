@@ -13,10 +13,8 @@
   },
   "rules": {
     "comma-dangle": 0,
-    "no-console": 0,
-    "strict": 0,
     "no-undef": "error",
-    "@typescript-eslint/camelcase": 0
+    "curly": ["error", "multi-line"]
   },
   "overrides": [
     {
