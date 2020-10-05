@@ -1,10 +1,9 @@
-name: on-push workflow
+name: Built, Lint and Test
 
-on:
-  push
+on: [push]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,13 +13,5 @@ jobs:
       - run: npm ci
       - run: npm run postinstall
       - run: npm run build
-      - run: npm audit --production
       - run: npm run lint
-  test:
-    needs: [build]
-    strategy:
-      matrix:
-        node_version: [10, 12]
-    runs-on: ubuntu-latest
-    steps:
       - run: npm test
