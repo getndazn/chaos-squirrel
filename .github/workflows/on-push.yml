@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10, 12, 14]
+        node-version: [10, 12]
 
     steps:
       - uses: actions/checkout@v2
@@ -20,3 +20,8 @@ jobs:
       - run: npm run build
       - run: npm run lint
       - run: npm test
+
+      - run: npm run new-version
+        if: github.ref == 'refs/heads/master'
+      - run: npm run publish
+        if: github.ref == 'refs/heads/master'
