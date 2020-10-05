@@ -1,15 +1,20 @@
-name: Built, Lint and Test
+name: Build + Test
 
-on: [push]
+on: push
 
 jobs:
-  build-test:
+  run:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10, 12, 14]
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run postinstall
       - run: npm run build
