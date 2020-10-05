@@ -7,10 +7,13 @@ on:
 
 jobs:
   release:
+    if: "!contains(github.event.commits[0].message, 'chore(release): publish')"
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v1
         with:
           node-version: 12
