@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - uses: actions/setup-node@v1
         with:
           node-version: 12
@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "DAZN Bot"
       - run: npm run new-version
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
