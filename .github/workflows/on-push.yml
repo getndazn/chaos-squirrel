@@ -17,6 +17,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run postinstall
+      - run: npm run build
       - run: npm test
 
   lint:
@@ -28,17 +29,4 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm run postinstall
       - run: npm run lint
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm run postinstall
-      - run: npm run build
