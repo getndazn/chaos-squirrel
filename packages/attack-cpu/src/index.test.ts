@@ -13,7 +13,7 @@ describe('when allowLoopEvery is set to 10ms', () => {
       // should block for at least the 10ms
       expect(end).toBeGreaterThanOrEqual(start + 10);
       // shouldn't block for too long
-      expect(end).toBeLessThan(start + 15);
+      expect(end).toBeLessThan(start + 20);
       done();
     });
   });
@@ -31,7 +31,7 @@ describe('when runTime is set to 10ms', () => {
       // should block for at least the 10ms
       expect(end).toBeGreaterThanOrEqual(start + 10);
       // shouldn't block for too long
-      expect(end).toBeLessThan(start + 15);
+      expect(end).toBeLessThan(start + 20);
       done();
     });
   });
@@ -46,7 +46,7 @@ describe('when defaults are used', () => {
 
     setImmediate(() => {
       const firstLoop = Date.now();
-      // should block for at least the 10ms
+      // should block for at least 1s
       expect(firstLoop).toBeGreaterThanOrEqual(start + 1000);
       // shouldn't block for too long
       expect(firstLoop).toBeLessThan(start + 1010);
@@ -54,7 +54,7 @@ describe('when defaults are used', () => {
       setImmediate(() => {
         attack.stop();
         const end = Date.now();
-        // should block for at least the 10ms
+        // should block for at least another 1s
         expect(end).toBeGreaterThanOrEqual(start + 2000);
         // shouldn't block for too long
         expect(end).toBeLessThan(start + 2020);

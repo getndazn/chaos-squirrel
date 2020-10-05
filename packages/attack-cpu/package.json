@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-cpu#readme",
   "publishConfig": {
-    "@dazn:registry": "https://registry.npmjs.org/",
     "access": "restricted"
   }
 }

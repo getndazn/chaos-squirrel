@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run postinstall
+      - run: npm run build
+      - run: npm run test # should be unnecessary, but let's be sure!
+      - name: Setup Git
+        run: |
+          git config --global user.email "dazn-bot@dazn.com"
+          git config --global user.name "DAZN Bot"
+      - run: npm run new-version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm run publish
