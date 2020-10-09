@@ -1,0 +1,28 @@
+{
+  "name": "@dazn/chaos-squirrel-attack-throw-error",
+  "version": "0.9.1",
+  "description": "Chaos Squirrel - Attack - Throw Error",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc",
+    "build:watch": "tsc -w",
+    "test": "jest"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/chaos-squirrel.git"
+  },
+  "author": "Kamil Gruszka <kamil.gruszka@dazn.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/getndazn/chaos-squirrel/issues"
+  },
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-throw-error#readme",
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
