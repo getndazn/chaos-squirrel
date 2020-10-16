@@ -7,4 +7,6 @@ process.on('message', ({ runTime = Infinity }: { runTime: number }) => {
     allowLoopEvery: Infinity,
   });
   attack.start();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  process.send!('started');
 });

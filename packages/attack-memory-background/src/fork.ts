@@ -5,4 +5,6 @@ process.on('message', ({ size }: { size: number }) => {
     size,
   });
   attack.start();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  process.send!('started');
 });
