@@ -24,11 +24,11 @@ describe('when defaults are used', () => {
 
 describe('when the process takes some time to initialise', () => {
   it('waits', async () => {
-    onFn.mockImplementationOnce((_msg, cb) => setTimeout(cb, 20));
+    onFn.mockImplementationOnce((_msg, cb) => setTimeout(cb, 10));
     const attack = new BackgroundCPUAttack({ threads: 1 });
     const time = Date.now();
     await attack.start();
-    expect(Date.now() - time).toBeGreaterThan(20);
+    expect(Date.now() - time).toBeGreaterThanOrEqual(10);
   });
 });
 
