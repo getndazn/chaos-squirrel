@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-memory-background",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Chaos Squirrel - Attack - Background Memory usage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-memory-background#readme",
   "dependencies": {
-    "@dazn/chaos-squirrel-attack-memory": "^0.9.1"
+    "@dazn/chaos-squirrel-attack-memory": "^0.9.2"
   },
   "publishConfig": {
     "access": "restricted"

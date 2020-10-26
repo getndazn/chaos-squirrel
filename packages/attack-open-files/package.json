@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-open-files",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Chaos Squirrel - Attack - Open Files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
