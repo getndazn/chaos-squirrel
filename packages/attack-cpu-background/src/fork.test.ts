@@ -4,6 +4,7 @@ import './fork';
 
 describe('when a message is received', () => {
   it('starts a CPU attack', () => {
+    jest.spyOn(process, 'send');
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     process.emit('message', {});
@@ -13,5 +14,6 @@ describe('when a message is received', () => {
       allowLoopEvery: Infinity,
     });
     expect(CPUAttack.prototype.start).toHaveBeenCalledTimes(1);
+    expect(process.send).toHaveBeenCalledTimes(1);
   });
 });

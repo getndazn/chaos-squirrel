@@ -4,6 +4,7 @@ import './fork';
 
 describe('when a message is received', () => {
   it('starts a memory attack', () => {
+    jest.spyOn(process, 'send');
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     process.emit('message', { size: 5 });
@@ -12,5 +13,6 @@ describe('when a message is received', () => {
       size: 5,
     });
     expect(MemoryAttack.prototype.start).toHaveBeenCalledTimes(1);
+    expect(process.send).toHaveBeenCalledTimes(1);
   });
 });

@@ -24,10 +24,14 @@ export default class BackgroundMemoryAttack {
     this.size = size;
   }
 
-  start(): void {
-    this.worker = fork(`${__dirname}/fork.js`);
-    this.worker.send({
+  async start(): Promise<void> {
+    const worker = (this.worker = fork(`${__dirname}/fork.js`));
+    worker.send({
       size: this.size,
+    });
+
+    await new Promise((resolve) => {
+      worker.on('message', () => resolve());
     });
   }
 
