@@ -15,6 +15,7 @@ JavaScript Chaos
 - [Memory](./packages/attack-memory) - Use lots of memory
 - [Background Memory](./packages/attack-memory-background) - Use lots of memory in a forked process
 - [Disk Space](./packages/attack-disk-space) - Consume lots of disk space
+- [Throw Error](./packages/attack-throw-error) - Throws error or causes uncaught exception
 
 ## Usage via Runner
 
