@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-runner",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Chaos Squirrel - Runner",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,6 +26,6 @@
     "access": "restricted"
   },
   "devDependencies": {
-    "@dazn/chaos-squirrel-attack-cpu": "^0.9.2"
+    "@dazn/chaos-squirrel-attack-cpu": "^0.9.3"
   }
 }
