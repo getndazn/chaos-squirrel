@@ -6,7 +6,8 @@ Causes an error to be thrown - either directly or via `setImmediate` causing unc
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `error` | `Error` | `new Error('chaos-squirrel: attack-throw-error')` | An error to be thrown |
+| `errorClass` | `ErrConstructor` | `Error` | Instance of that class will be thrown. The class should extend `Error`. |
+| `errorMessage` | `string` | `chaos-squirrel: attack-throw-error` | Error message |
 | `uncaughtException` | `boolean` | `false` | Flag that decides if uncaught exception is thrown |
 
 ### Examples
@@ -15,13 +16,22 @@ Immediately thrown error
 ```ts
 import ThrowErrorAttack from '@dazn/chaos-squirrel-attack-throw-error';;
 
-const error = new Error('Chaos!');
-const attack = new ThrowErrorAttack({ error });
+class CustomError extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
+const errorMessage = 'Chaos!';
+const attack = new ThrowErrorAttack({
+    errorClass: CustomError,
+    errorMessage
+});
 
 try {
     attack.start();
 } catch (err) {
-    err === error // true
+    err instanceof CustomError // true
+    console.log(err.message) // Chaos!
 }
 ```
 
@@ -29,11 +39,11 @@ Uncaught exception
 ```ts
 import ThrowErrorAttack from '@dazn/chaos-squirrel-attack-throw-error';
 
-const error = new Error('Chaos!');
-const attack = new ThrowErrorAttack({ uncaughtException: true, error });
+const attack = new ThrowErrorAttack({ uncaughtException: true });
 
 process.on('uncaughtException', (err) => {
-    err === error // true
+    err instanceof Error // true
+    console.log(err.message) // chaos-squirrel: attack-throw-error
 })
 
 attack.start();
