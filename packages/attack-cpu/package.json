@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-cpu",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Chaos Squirrel - Attack - CPU usage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

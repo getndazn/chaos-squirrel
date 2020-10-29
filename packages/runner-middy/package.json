@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-runner-middy",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Chaos Squirrel - Runner - Middy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "access": "restricted"
   },
   "devDependencies": {
-    "@dazn/chaos-squirrel-runner": "^0.9.3",
+    "@dazn/chaos-squirrel-runner": "^0.9.4",
     "@middy/core": "^1.1.0",
     "@types/aws-lambda": "^8.10.60"
   }
