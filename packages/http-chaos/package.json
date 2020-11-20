@@ -1,0 +1,23 @@
+{
+  "name": "http-chaos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc",
+    "build:watch": "tsc -w",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "got": "^11.8.0",
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "mitm": "^1.7.1",
+    "msw": "^0.22.1",
+    "node-request-interceptor": "^0.5.4"
+  }
+}
