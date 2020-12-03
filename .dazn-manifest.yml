@@ -1,5 +1,6 @@
-dazn-manifest: 0.0.2
-info:
-  name: chaos-squirrel
-  description: JavaScript Chaos
-  owner: Simon Tabor
+dazn-manifest: 3.0.0
+owner: simon.tabor@dazn.com
+inner-source:
+  - distribution-method: NPM
+    maintainers:
+      - "simon.tabor@dazn.com"
