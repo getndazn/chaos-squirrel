@@ -4,3 +4,7 @@ inner-source:
   - distribution-method: NPM
     maintainers:
       - "simon.tabor@dazn.com"
+    labels:
+      - chaos
+      - npm
+      - typescript
