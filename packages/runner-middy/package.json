@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-runner-middy",
   "version": "0.9.4",
-  "description": "Chaos Squirrel - Runner - Middy",
+  "description": "Run chaos experiments in your Middy-powered Lambda",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

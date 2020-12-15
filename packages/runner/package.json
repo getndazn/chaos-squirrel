@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-runner",
   "version": "0.9.4",
-  "description": "Chaos Squirrel - Runner",
+  "description": "Run chaos experiments in your application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

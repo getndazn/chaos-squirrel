@@ -1,5 +1,64 @@
-dazn-manifest: 0.0.2
-info:
-  name: chaos-squirrel
-  description: JavaScript Chaos
-  owner: Simon Tabor
+anchors:
+  - &common
+    distribution-method: NPM
+    maintainers:
+      - simon.tabor@dazn.com
+    categories:
+      - backend
+    labels:
+      - Chaos Engineering
+      - Node.js
+      - Chaos Squirrel
+
+dazn-manifest: 3.0.0
+owner: Simon.Tabor@dazn.com
+inner-source:
+  - <<: *common
+    friendly-name: Chaos Squirrel - Runner
+    description: Run chaos experiments in your application
+    directory: /packages/runner
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Middy Runner
+    description: Run chaos experiments in your Middy-powered Lambda
+    directory: /packages/runner-middy
+    labels:
+      - Chaos Engineering
+      - Node.js
+      - Chaos Squirrel
+      - lambda
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - CPU Attack
+    description: Chaos Squirrel attack to exhaust CPU
+    directory: /packages/attack-cpu
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Background CPU Attack
+    description: Chaos Squirrel attack to exhaust CPU in a background process
+    directory: /packages/attack-cpu-background
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Disk Space Attack
+    description: Chaos Squirrel attack to consume/fill disk space
+    directory: /packages/attack-disk-space
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Memory Attack
+    description: Chaos Squirrel attack to fill memory
+    directory: /packages/attack-memory
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Background Memory Attack
+    description: Chaos Squirrel attack to fill memory in a background process
+    directory: /packages/attack-memory-background
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Open Files Attack
+    description: Chaos Squirrel attack to open lots of files and consume file descriptor limits
+    directory: /packages/attack-open-files
+
+  - <<: *common
+    friendly-name: Chaos Squirrel - Throw Error Attack
+    description: Chaos Squirrel attack to throw an exception
+    directory: /packages/attack-throw-error

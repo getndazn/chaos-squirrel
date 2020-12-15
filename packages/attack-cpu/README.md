@@ -1,3 +1,3 @@
 # @dazn/chaos-squirrel-attack-cpu
 
-Exhaust CPU
+Chaos Squirrel attack to exhaust CPU

@@ -1,6 +1,6 @@
 # @dazn/chaos-squirrel-attack-memory
 
-Use lots of memory
+Chaos Squirrel attack to fill memory
 
 ## Usage
 
