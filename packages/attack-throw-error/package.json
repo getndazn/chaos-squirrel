@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-attack-throw-error",
   "version": "0.9.4",
-  "description": "Chaos Squirrel - Attack - Throw Error",
+  "description": "Chaos Squirrel attack to throw an exception",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

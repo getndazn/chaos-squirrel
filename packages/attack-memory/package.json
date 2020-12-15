@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-attack-memory",
   "version": "0.9.4",
-  "description": "Chaos Squirrel - Attack - Memory usage",
+  "description": "Chaos Squirrel attack to fill memory",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

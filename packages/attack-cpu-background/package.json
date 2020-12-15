@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-attack-cpu-background",
   "version": "0.9.4",
-  "description": "Chaos Squirrel - Attack - Background CPU usage",
+  "description": "Chaos Squirrel attack to exhaust CPU in a background process",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
