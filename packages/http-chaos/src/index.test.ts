@@ -1,4 +1,4 @@
-import HttpAttack from './';
+import HttpAttack from './index';
 import got from 'got';
 
 // TODO: type response
