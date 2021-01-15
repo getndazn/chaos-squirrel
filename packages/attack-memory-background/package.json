@@ -17,7 +17,7 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Simon Tabor <simon.tabor@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
@@ -26,6 +26,6 @@
     "@dazn/chaos-squirrel-attack-memory": "^0.9.5"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }

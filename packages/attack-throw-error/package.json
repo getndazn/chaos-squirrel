@@ -17,12 +17,12 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Kamil Gruszka <kamil.gruszka@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-throw-error#readme",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }
