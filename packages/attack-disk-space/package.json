@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-disk-space",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Chaos Squirrel attack to consume/fill disk space",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
