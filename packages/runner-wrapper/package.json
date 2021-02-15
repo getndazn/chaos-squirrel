@@ -1,0 +1,31 @@
+{
+  "name": "@dazn/chaos-squirrel-runner-wrapper",
+  "version": "0.9.7",
+  "description": "Wrap any function in Chaos",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc",
+    "build:watch": "tsc -w",
+    "test": "jest"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/chaos-squirrel.git"
+  },
+  "author": "Simon Tabor <simon.tabor@dazn.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/getndazn/chaos-squirrel/issues"
+  },
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner-wrapper#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@dazn/chaos-squirrel-runner": "^0.9.7"
+  }
+}
