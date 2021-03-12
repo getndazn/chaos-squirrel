@@ -1,7 +1,7 @@
 import Mitm from 'mitm';
 
 export interface HTTPAttackOptions {
-  ignoreURLpatterns?: string[];
+  ignoreUrlPatterns?: string[];
 }
 
 export default class HTTPAttack {
@@ -12,11 +12,11 @@ export default class HTTPAttack {
     };
   }
 
-  ignoreURLpatterns: string[];
+  ignoreUrlPatterns: string[];
   stopped = false;
 
-  constructor({ ignoreURLpatterns = [] }: HTTPAttackOptions = {}) {
-    this.ignoreURLpatterns = ignoreURLpatterns;
+  constructor({ ignoreUrlPatterns = [] }: HTTPAttackOptions = {}) {
+    this.ignoreUrlPatterns = ignoreUrlPatterns;
   }
 
   start(): void {
@@ -28,7 +28,7 @@ export default class HTTPAttack {
 
       const requestedURL: string = opts?.host || '';
 
-      const shouldIgnore = this.ignoreURLpatterns
+      const shouldIgnore = this.ignoreUrlPatterns
         .some((needle: string) => requestedURL.includes(needle));
 
       if (this.stopped || shouldIgnore) socket.bypass();
