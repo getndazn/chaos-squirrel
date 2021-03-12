@@ -33,7 +33,7 @@ describe('when attack is stopped', () => {
 });
 
 describe('if ignoreUrlPatterns config is passed', () => {
-  test('the requests do not fail', async () => {
+  it('no requests fail', async () => {
     const attack = new HttpAttack({ ignoreUrlPatterns: ['postman-echo.com'] });
     attack.start();
     const results = await createXRequests(10);
@@ -42,7 +42,7 @@ describe('if ignoreUrlPatterns config is passed', () => {
 });
 
 describe('If attack is started', () => {
-  test('some requests fail', async () => {
+  it('some requests fail', async () => {
     const attack = new HttpAttack();
     attack.start();
     const results = await createXRequests(10);
