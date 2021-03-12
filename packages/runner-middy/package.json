@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-runner-middy",
-  "version": "0.9.4",
-  "description": "Chaos Squirrel - Runner - Middy",
+  "version": "0.9.9",
+  "description": "Run chaos experiments in your Middy-powered Lambda",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -17,16 +17,16 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Simon Tabor <simon.tabor@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner-middy#readme",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "devDependencies": {
-    "@dazn/chaos-squirrel-runner": "^0.9.4",
+    "@dazn/chaos-squirrel-runner": "^0.9.9",
     "@middy/core": "^1.1.0",
     "@types/aws-lambda": "^8.10.60"
   }

@@ -1,7 +1,7 @@
 {
-  "name": "@dazn/chaos-squirrel-attack-disk-space",
+  "name": "@dazn/chaos-squirrel-runner-wrapper",
   "version": "0.9.9",
-  "description": "Chaos Squirrel attack to consume/fill disk space",
+  "description": "Wrap any function in Chaos",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,8 +21,11 @@
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
-  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-disk-space#readme",
+  "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner-wrapper#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@dazn/chaos-squirrel-runner": "^0.9.9"
   }
 }

@@ -1,3 +1,3 @@
 # @dazn/chaos-squirrel-attack-cpu-background
 
-Exhaust CPU
+Chaos Squirrel attack to exhaust CPU in a background process

@@ -10,7 +10,7 @@
     "test": "lerna exec --concurrency 1 -- npm test",
     "build": "lerna run build",
     "new-version": "lerna version --conventional-commits --create-release github --yes",
-    "publish": "lerna publish from-package --yes"
+    "publish": "lerna publish from-package --yes --registry https://registry.npmjs.org"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
@@ -39,7 +39,7 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Simon Tabor <simon.tabor@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
@@ -55,8 +55,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "publishConfig": {
-    "access": "restricted"
   }
 }

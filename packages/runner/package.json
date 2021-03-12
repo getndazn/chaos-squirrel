@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-runner",
-  "version": "0.9.4",
-  "description": "Chaos Squirrel - Runner",
+  "version": "0.9.9",
+  "description": "Run chaos experiments in your application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -17,15 +17,15 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Simon Tabor <simon.tabor@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/runner#readme",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "devDependencies": {
-    "@dazn/chaos-squirrel-attack-cpu": "^0.9.4"
+    "@dazn/chaos-squirrel-attack-cpu": "^0.9.9"
   }
 }

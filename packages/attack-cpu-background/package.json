@@ -1,7 +1,7 @@
 {
   "name": "@dazn/chaos-squirrel-attack-cpu-background",
-  "version": "0.9.4",
-  "description": "Chaos Squirrel - Attack - Background CPU usage",
+  "version": "0.9.9",
+  "description": "Chaos Squirrel attack to exhaust CPU in a background process",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -17,15 +17,15 @@
     "url": "git+https://github.com/getndazn/chaos-squirrel.git"
   },
   "author": "Simon Tabor <simon.tabor@dazn.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/getndazn/chaos-squirrel/issues"
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-cpu-background#readme",
   "dependencies": {
-    "@dazn/chaos-squirrel-attack-cpu": "^0.9.4"
+    "@dazn/chaos-squirrel-attack-cpu": "^0.9.9"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }
