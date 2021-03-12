@@ -29,8 +29,7 @@ export default class HTTPAttack {
       const requestedURL: string = opts?.host || '';
 
       const shouldIgnore = this.ignoreURLpatterns
-        .map((needle: string) => requestedURL.includes(needle))
-        .includes(true);
+        .some((needle: string) => requestedURL.includes(needle));
 
       if (this.stopped || shouldIgnore) socket.bypass();
     });
