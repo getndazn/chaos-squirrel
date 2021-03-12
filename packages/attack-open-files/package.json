@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-open-files",
-  "version": "0.9.9",
+  "version": "0.10.0",
   "description": "Chaos Squirrel attack to open lots of files and consume file descriptor limits",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
