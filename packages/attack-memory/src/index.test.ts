@@ -39,6 +39,39 @@ describe('when given lengths larger than the max buffer length', () => {
   });
 });
 
+describe('when given progressive attack options', () => {
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
+
+  it('progressively allocates memory', () => {
+    const attack = new MemoryAttack({
+      size: 20,
+      stepSize: 10,
+      stepTime: 100,
+    });
+    attack.start();
+
+    expect(setInterval).toHaveBeenCalled();
+
+    expect(attack.buffers).toHaveLength(1);
+    expect(Buffer.byteLength(attack.buffers[0])).toBe(10);
+
+    jest.advanceTimersByTime(100);
+
+    expect(attack.buffers).toHaveLength(2);
+    expect(Buffer.byteLength(attack.buffers[0])).toBe(10);
+
+    jest.advanceTimersByTime(100);
+
+    expect(attack.buffers).toHaveLength(2);
+
+    attack.stop();
+
+    expect(attack.buffers).toHaveLength(0);
+    expect(clearInterval).toHaveBeenCalled();
+  });
+});
+
 describe('.configure', () => {
   it('returns a function which creates a new attack with the given options', () => {
     const createAttack = MemoryAttack.configure({
