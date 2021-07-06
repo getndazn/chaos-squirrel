@@ -15,4 +15,19 @@ describe('when a message is received', () => {
     expect(MemoryAttack.prototype.start).toHaveBeenCalledTimes(1);
     expect(process.send).toHaveBeenCalledTimes(1);
   });
+
+  it('starts a memory attack with progressive options', () => {
+    jest.spyOn(process, 'send');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    process.emit('message', { size: 5, stepSize: 1, stepTime: 10 });
+    expect(MemoryAttack).toHaveBeenCalledTimes(1);
+    expect(MemoryAttack).toHaveBeenCalledWith({
+      size: 5,
+      stepSize: 1,
+      stepTime: 10,
+    });
+    expect(MemoryAttack.prototype.start).toHaveBeenCalledTimes(1);
+    expect(process.send).toHaveBeenCalledTimes(1);
+  });
 });

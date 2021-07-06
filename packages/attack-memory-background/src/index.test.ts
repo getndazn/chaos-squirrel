@@ -1,16 +1,18 @@
 import BackgroundMemoryAttack from './';
 import child_process, { ChildProcess } from 'child_process';
-import buffer from 'buffer';
+import * as buffer from 'buffer';
 
 const sendFn = jest.fn();
 const killFn = jest.fn();
 const onFn = jest.fn((_msg, cb) => cb());
-jest
-  .spyOn(child_process, 'fork')
-  .mockImplementation(
-    () =>
-      (({ send: sendFn, kill: killFn, on: onFn } as unknown) as ChildProcess)
-  );
+jest.spyOn(child_process, 'fork').mockImplementation(
+  () =>
+    (({
+      send: sendFn,
+      kill: killFn,
+      on: onFn,
+    } as unknown) as ChildProcess)
+);
 
 describe('when defaults are used', () => {
   it('forks a process with the max buffer length', async () => {
@@ -18,7 +20,34 @@ describe('when defaults are used', () => {
     await attack.start();
     expect(child_process.fork).toHaveBeenCalledTimes(1);
     expect(sendFn).toHaveBeenCalledTimes(1);
-    expect(sendFn).toHaveBeenCalledWith({ size: buffer.constants.MAX_LENGTH });
+    expect(sendFn).toHaveBeenCalledWith({
+      size: buffer.constants.MAX_LENGTH,
+      stepSize: 0,
+      stepTime: 0,
+    });
+    expect(killFn).not.toHaveBeenCalled();
+  });
+});
+
+describe('when given progressive attack options', () => {
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
+
+  it('passes progressive attack options to child process', async () => {
+    const attack = new BackgroundMemoryAttack({
+      size: 50,
+      stepSize: 25,
+      stepTime: 50,
+    });
+    await attack.start();
+
+    expect(child_process.fork).toHaveBeenCalledTimes(1);
+    expect(sendFn).toHaveBeenCalledTimes(1);
+    expect(sendFn).toHaveBeenCalledWith({
+      size: 50,
+      stepSize: 25,
+      stepTime: 50,
+    });
     expect(killFn).not.toHaveBeenCalled();
   });
 });
