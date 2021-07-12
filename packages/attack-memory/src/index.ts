@@ -1,6 +1,4 @@
-import buffer from 'buffer';
-
-const BUF_LENGTH = buffer.constants.MAX_LENGTH;
+import * as buffer from 'buffer';
 
 export interface MemoryAttackOptions {
   size?: number; // bytes
@@ -19,11 +17,11 @@ export default class MemoryAttack {
   size: number;
   stepSize: number;
   stepTime: number;
-  stepInterval?: NodeJS.Timeout;
   buffers: Buffer[] = [];
+  private stepInterval?: NodeJS.Timeout;
 
   constructor({
-    size = BUF_LENGTH,
+    size = buffer.constants.MAX_LENGTH,
     stepSize = 0,
     stepTime = 0,
   }: MemoryAttackOptions = {}) {
@@ -69,7 +67,7 @@ export default class MemoryAttack {
   private allocate(size: number) {
     let toFill = size;
     while (toFill > 0) {
-      const bufSize = Math.min(toFill, BUF_LENGTH);
+      const bufSize = Math.min(toFill, buffer.constants.MAX_LENGTH);
       this.buffers.push(Buffer.alloc(bufSize, 'chaos-squirrel'));
       toFill -= bufSize;
     }

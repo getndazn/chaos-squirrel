@@ -1,8 +1,10 @@
 import { fork, ChildProcess } from 'child_process';
-import buffer from 'buffer';
+import * as buffer from 'buffer';
 
 export interface BackgroundMemoryAttackOptions {
-  size?: number;
+  size?: number; // bytes
+  stepSize?: number; // bytes
+  stepTime?: number; // milliseconds
 }
 
 export default class BackgroundMemoryAttack {
@@ -16,26 +18,65 @@ export default class BackgroundMemoryAttack {
   }
 
   size: number;
+  stepSize: number;
+  stepTime: number;
+  private stepInterval?: NodeJS.Timeout;
   private worker?: ChildProcess;
+  private allocatedSize = 0;
+  private workers = [];
 
   constructor({
     size = buffer.constants.MAX_LENGTH,
+    stepSize = 0,
+    stepTime = 0,
   }: BackgroundMemoryAttackOptions = {}) {
     this.size = size;
+    this.stepSize = stepSize;
+    this.stepTime = stepTime;
   }
 
   async start(): Promise<void> {
-    const worker = (this.worker = fork(`${__dirname}/fork.js`));
-    worker.send({
-      size: this.size,
-    });
+    if (this.stepTime && this.stepSize) {
+      this.allocate(this.stepSize);
+      this.stepInterval = setInterval(
+        this.stepAllocate.bind(this),
+        this.stepTime
+      );
+    } else {
+      await this.allocate(this.size);
+    }
+  }
+
+  private async stepAllocate() {
+    if (this.allocatedSize >= this.size) {
+      this.clearStep();
+    } else {
+      await this.allocate(this.stepSize);
+    }
+  }
+
+  private clearStep() {
+    if (typeof this.stepInterval !== 'undefined') {
+      clearInterval(this.stepInterval);
+      this.stepInterval = undefined;
+    }
+  }
+
+  private async allocate(size: number) {
+    const worker = fork(`${__dirname}/fork.js`);
+
+    worker.send({ size });
 
     await new Promise((resolve) => {
       worker.on('message', () => resolve());
     });
+
+    this.workers.push(worker);
+    this.allocatedSize += size;
   }
 
   stop(): void {
-    if (this.worker) this.worker.kill();
+    this.workers.forEach((worker) => worker.kill());
+    this.workers = [];
   }
 }
