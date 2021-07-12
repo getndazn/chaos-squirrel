@@ -21,8 +21,7 @@ export default class BackgroundMemoryAttack {
   stepSize: number;
   stepTime: number;
   private stepInterval?: NodeJS.Timeout;
-  private allocatedSize = 0;
-  private workers: Array<ChildProcess> = [];
+  private workers: ChildProcess[] = [];
 
   constructor({
     size = buffer.constants.MAX_LENGTH,
@@ -47,7 +46,7 @@ export default class BackgroundMemoryAttack {
   }
 
   private async stepAllocate() {
-    if (this.allocatedSize >= this.size) {
+    if (this.workers.length * this.stepSize >= this.size) {
       this.clearStep();
     } else {
       await this.allocate(this.stepSize);
@@ -71,7 +70,6 @@ export default class BackgroundMemoryAttack {
     });
 
     this.workers.push(worker);
-    this.allocatedSize += size;
   }
 
   stop(): void {

@@ -30,13 +30,6 @@ export default class MemoryAttack {
     this.stepTime = stepTime;
   }
 
-  private get allocatedSize() {
-    return this.buffers.reduce(
-      (total, current) => total + Buffer.byteLength(current),
-      0
-    );
-  }
-
   start(): void {
     if (this.stepTime && this.stepSize) {
       this.allocate(this.stepSize);
@@ -50,7 +43,7 @@ export default class MemoryAttack {
   }
 
   private stepAllocate() {
-    if (this.allocatedSize >= this.size) {
+    if (this.buffers.length * this.stepSize >= this.size) {
       this.clearStep();
     } else {
       this.allocate(this.stepSize);

@@ -1,5 +1,5 @@
 import MemoryAttack from './';
-import buffer from 'buffer';
+import * as buffer from 'buffer';
 
 describe('when provided a small buffer size', () => {
   it('creates a small buffer', () => {

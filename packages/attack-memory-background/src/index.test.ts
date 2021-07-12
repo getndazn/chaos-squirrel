@@ -1,6 +1,6 @@
 import BackgroundMemoryAttack from './';
 import child_process, { ChildProcess } from 'child_process';
-import buffer from 'buffer';
+import * as buffer from 'buffer';
 
 const sendFn = jest.fn();
 const killFn = jest.fn();
@@ -20,6 +20,36 @@ describe('when defaults are used', () => {
     expect(sendFn).toHaveBeenCalledTimes(1);
     expect(sendFn).toHaveBeenCalledWith({ size: buffer.constants.MAX_LENGTH });
     expect(killFn).not.toHaveBeenCalled();
+  });
+});
+
+describe('when given progressive attack options', () => {
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
+
+  it('progressively allocates memory', async () => {
+    const attack = new BackgroundMemoryAttack({
+      size: 50,
+      stepSize: 25,
+      stepTime: 50,
+    });
+    await attack.start();
+
+    expect(setInterval).toHaveBeenCalled();
+    expect(attack.workers).toHaveLength(1);
+
+    jest.advanceTimersByTime(50);
+
+    expect(attack.workers).toHaveLength(2);
+
+    jest.advanceTimersByTime(50);
+
+    expect(attack.workers).toHaveLength(2);
+
+    attack.stop();
+
+    expect(attack.workers).toHaveLength(0);
+    expect(clearInterval).toHaveBeenCalled();
   });
 });
 
