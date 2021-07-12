@@ -20,8 +20,8 @@ export default class BackgroundMemoryAttack {
   size: number;
   stepSize: number;
   stepTime: number;
+  workers: ChildProcess[] = [];
   private stepInterval?: NodeJS.Timeout;
-  private workers: ChildProcess[] = [];
 
   constructor({
     size = buffer.constants.MAX_LENGTH,
