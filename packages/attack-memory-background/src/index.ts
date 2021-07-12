@@ -35,7 +35,7 @@ export default class BackgroundMemoryAttack {
 
   async start(): Promise<void> {
     if (this.stepTime && this.stepSize) {
-      this.allocate(this.stepSize);
+      await this.allocate(this.stepSize);
       this.stepInterval = setInterval(
         this.stepAllocate.bind(this),
         this.stepTime
