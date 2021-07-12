@@ -21,9 +21,8 @@ export default class BackgroundMemoryAttack {
   stepSize: number;
   stepTime: number;
   private stepInterval?: NodeJS.Timeout;
-  private worker?: ChildProcess;
   private allocatedSize = 0;
-  private workers = [];
+  private workers: Array<ChildProcess> = [];
 
   constructor({
     size = buffer.constants.MAX_LENGTH,
