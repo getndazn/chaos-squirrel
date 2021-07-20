@@ -1,6 +1,6 @@
 {
   "name": "@dazn/chaos-squirrel-attack-http-requests",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Chaos Squirrel attack to HTTP requests",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
