@@ -1,5 +1,5 @@
 import MemoryAttack from './';
-import buffer from 'buffer';
+import * as buffer from 'buffer';
 
 describe('when provided a small buffer size', () => {
   it('creates a small buffer', () => {
@@ -36,6 +36,39 @@ describe('when given lengths larger than the max buffer length', () => {
     expect(Buffer.byteLength(attack.buffers[1])).toBe(1);
     attack.stop();
     expect(attack.buffers).toHaveLength(0);
+  });
+});
+
+describe('when given progressive attack options', () => {
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
+
+  it('progressively allocates memory', () => {
+    const attack = new MemoryAttack({
+      size: 20,
+      stepSize: 10,
+      stepTime: 100,
+    });
+    attack.start();
+
+    expect(setInterval).toHaveBeenCalled();
+
+    expect(attack.buffers).toHaveLength(1);
+    expect(Buffer.byteLength(attack.buffers[0])).toBe(10);
+
+    jest.advanceTimersByTime(100);
+
+    expect(attack.buffers).toHaveLength(2);
+    expect(Buffer.byteLength(attack.buffers[0])).toBe(10);
+
+    jest.advanceTimersByTime(100);
+
+    expect(attack.buffers).toHaveLength(2);
+
+    attack.stop();
+
+    expect(attack.buffers).toHaveLength(0);
+    expect(clearInterval).toHaveBeenCalled();
   });
 });
 
