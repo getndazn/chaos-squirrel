@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm ci && npm ci --workspaces=true
+      - run: npm ci
       - run: nom run prepare
       - run: npm run build
       - run: npm run test # should be unnecessary, but let's be sure!
