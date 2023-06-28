@@ -13,8 +13,8 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": ">=18.16",
-    "npm": ">=9.5"
+    "node": ">=16.17",
+    "npm": ">=8.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",

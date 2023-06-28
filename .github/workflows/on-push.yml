@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci && npm ci --workspaces=true
+      - run: npm run prepare
       - run: npm run build
       - run: npm test
 
@@ -32,4 +33,5 @@ jobs:
         with:
           node-version: 18
       - run: npm ci && npm ci --workspaces=true
+      - run: npm run prepare
       - run: npm run lint

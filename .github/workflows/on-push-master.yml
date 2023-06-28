@@ -17,7 +17,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm ci
+      - run: npm ci && npm ci --workspaces=true
+      - run: nom run prepare
       - run: npm run build
       - run: npm run test # should be unnecessary, but let's be sure!
       - name: Setup Git
