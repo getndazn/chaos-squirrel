@@ -3,6 +3,9 @@ import ThrowErrorAttack from './';
 // jest does not allow to test it with process.on('uncaughtException') https://github.com/facebook/jest/issues/5620
 
 describe('ThrowErrorAttack', () => {
+  jest.useFakeTimers();
+  jest.spyOn(global, 'setImmediate');
+
   class CustomError extends Error {
     constructor(message?: string) {
       super(message);
@@ -12,14 +15,13 @@ describe('ThrowErrorAttack', () => {
   const customErrorMessage = 'My custom chaos error';
 
   describe('.start', () => {
-    jest.useFakeTimers('legacy'); // next major version will default to 'modern' that breaks access to setTimeout args
-
     it('causes default error to be thrown with default message', async () => {
       const attack = new ThrowErrorAttack();
 
       try {
         attack.start();
-      } catch (err) {
+      } catch (error: unknown) {
+        const err = error as Error;
         expect(err).toBeInstanceOf(Error);
         expect(err.message).toBe(defaultErrorMessage);
       }
@@ -30,7 +32,8 @@ describe('ThrowErrorAttack', () => {
 
       try {
         attack.start();
-      } catch (err) {
+      } catch (error: unknown) {
+        const err = error as Error;
         expect(err).toBeInstanceOf(Error);
         expect(err.message).toBe(customErrorMessage);
       }
@@ -53,7 +56,8 @@ describe('ThrowErrorAttack', () => {
 
       try {
         attack.start();
-      } catch (err) {
+      } catch (error: unknown) {
+        const err = error as CustomError;
         expect(err).toBeInstanceOf(CustomError);
         expect(err.message).toBe(defaultErrorMessage);
       }
@@ -67,7 +71,8 @@ describe('ThrowErrorAttack', () => {
 
       try {
         attack.start();
-      } catch (err) {
+      } catch (error: unknown) {
+        const err = error as CustomError;
         expect(err).toBeInstanceOf(CustomError);
         expect(err.message).toBe(customErrorMessage);
       }
@@ -94,7 +99,7 @@ describe('ThrowErrorAttack', () => {
       try {
         attack.stop();
         attack.start();
-      } catch (err) {
+      } catch (err: unknown) {
         expect(err).toBeInstanceOf(Error);
       }
     });

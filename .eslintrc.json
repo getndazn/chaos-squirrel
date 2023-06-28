@@ -4,9 +4,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:prettier/recommended"
   ],
+  "globals": {
+    "NodeJS": true
+  },
   "env": {
     "node": true,
     "es6": true

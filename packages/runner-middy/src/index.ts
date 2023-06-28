@@ -12,7 +12,12 @@ export interface MiddyRunnerOptions {
   createLogger?: (context: Context) => Logger;
 }
 
-type ChaosMiddleware = middy.MiddlewareObject<unknown, unknown, ChaosContext>;
+type ChaosMiddleware = middy.MiddlewareObj<
+  unknown,
+  unknown,
+  unknown,
+  ChaosContext
+>;
 
 export default ({
   createRunner,
@@ -28,7 +33,7 @@ export default ({
 
   return {
     before: async (handler) => {
-      const context = handler.context;
+      const context = handler.context as ChaosContext;
       const runner = createRunner();
       if (createLogger) {
         runner.logger = createLogger(context);
@@ -38,10 +43,10 @@ export default ({
       if (wait) await start;
     },
     after: async (handler) => {
-      await stop(handler.context.chaosRunner, wait);
+      await stop((handler.context as ChaosContext).chaosRunner, wait);
     },
     onError: async (handler) => {
-      await stop(handler.context.chaosRunner, wait);
+      await stop((handler.context as ChaosContext).chaosRunner, wait);
     },
   };
 };

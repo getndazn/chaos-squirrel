@@ -62,3 +62,8 @@ inner-source:
     friendly-name: Chaos Squirrel - Throw Error Attack
     description: Chaos Squirrel attack to throw an exception
     directory: /packages/attack-throw-error
+    
+  - <<: *common
+    friendly-name: Chaos Squirrel - HTTP Requests Attack
+    description: Chaos Squirrel attack to highjack the http request and return an error
+    directory: /packages/attack-http-requests

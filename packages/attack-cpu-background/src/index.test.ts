@@ -7,8 +7,7 @@ const onFn = jest.fn((_msg, cb) => cb());
 jest
   .spyOn(child_process, 'fork')
   .mockImplementation(
-    () =>
-      (({ send: sendFn, kill: killFn, on: onFn } as unknown) as ChildProcess)
+    () => ({ send: sendFn, kill: killFn, on: onFn } as unknown as ChildProcess)
   );
 
 describe('when defaults are used', () => {
@@ -22,7 +21,7 @@ describe('when defaults are used', () => {
   });
 });
 
-describe('when the process takes some time to initialise', () => {
+describe('when the process takes some time to initialize', () => {
   it('waits', async () => {
     onFn.mockImplementationOnce((_msg, cb) => setTimeout(cb, 10));
     const attack = new BackgroundCPUAttack({ threads: 1 });

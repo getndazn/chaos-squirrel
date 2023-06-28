@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "shx rm -rf dist && tsc",
+    "build": "shx rm -rf {dist,tsconfig.tsbuildinfo} && tsc",
     "build:watch": "tsc -w",
     "test": "jest"
   },
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-cpu#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "dependency": "^0.0.1"
   }
 }

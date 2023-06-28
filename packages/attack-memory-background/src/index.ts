@@ -42,7 +42,7 @@ export default class BackgroundMemoryAttack {
     });
 
     await new Promise((resolve) => {
-      worker.on('message', () => resolve());
+      worker.on('message', () => resolve(null));
     });
   }
 
