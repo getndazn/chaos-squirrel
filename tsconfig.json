@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "references": [
+    {"path": "packages/attack-cpu"},
+    {"path": "packages/attack-cpu-background"},
+    {"path": "packages/attack-disk-space"},
+    {"path": "packages/attack-http-request"},
+    {"path": "packages/attack-memory"},
+    {"path": "packages/attack-memory-background"},
+    {"path": "packages/attack-open-files"},
+    {"path": "packages/attack-throw-error"},
+    {"path": "packages/runner"},
+    {"path": "packages/runner-middy"},
+    {"path": "packages/runner-wrapper"},
+  ]
+}

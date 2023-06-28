@@ -6,6 +6,10 @@ import child_process from 'child_process';
 
 jest.spyOn(fs, 'mkdtemp');
 
+class ValidationError extends Error {
+  public code = '';
+}
+
 describe('when filling 10 bytes', () => {
   it('creates a 10 byte file in a tmp directory', async () => {
     const attack = new DiskSpaceAttack({ size: 10 });
@@ -42,8 +46,8 @@ describe('when stopped before completing opening the files', () => {
     try {
       await fs.stat(attack.file as string);
       throw { code: 'File still exists' };
-    } catch (err) {
-      expect(err.code).toBe('ENOENT');
+    } catch (err: unknown) {
+      expect((err as ValidationError).code).toBe('ENOENT');
     }
   });
 });
@@ -63,8 +67,10 @@ describe('when dd returns a non-0 exit code', () => {
     const attack = new DiskSpaceAttack();
     try {
       await attack.start();
-    } catch (err) {
-      expect(err.message).toBe('Unable to write chaos file, exit code: 1');
+    } catch (err: unknown) {
+      expect((err as ValidationError).message).toBe(
+        'Unable to write chaos file, exit code: 1'
+      );
     }
   });
 });
@@ -89,8 +95,8 @@ describe('when unlink errors', () => {
     await attack.start();
     try {
       await attack.stop();
-    } catch (err) {
-      expect(err.message).toBe('Oh no!');
+    } catch (err: unknown) {
+      expect((err as ValidationError).message).toBe('Oh no!');
     }
   });
 });

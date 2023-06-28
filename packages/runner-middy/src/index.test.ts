@@ -9,9 +9,6 @@ const runnerConfig = {
   logger,
 };
 
-// middy types seem to expect this even when using async
-const next = jest.fn();
-
 const m = middleware({ createRunner: Runner.configure(runnerConfig) });
 
 it('returns a before, after and onError function', () => {
@@ -23,7 +20,7 @@ it('returns a before, after and onError function', () => {
 describe('when before is called', () => {
   it('starts a new chaos runner', () => {
     jest.spyOn(Runner.prototype, 'start');
-    m.before!({ context: {} } as middy.HandlerLambda, next);
+    m.before!({ context: {} } as middy.Request);
     expect(Runner.prototype.start).toHaveBeenCalledTimes(1);
   });
 });
@@ -35,7 +32,7 @@ describe.each([
   describe('when the runner has not been started', () => {
     it('does nothing', () => {
       jest.spyOn(Runner.prototype, 'stop');
-      fn!({ context: {} } as middy.HandlerLambda, next);
+      fn!({ context: {} } as middy.Request);
       expect(Runner.prototype.stop).not.toHaveBeenCalled();
     });
   });
@@ -44,8 +41,8 @@ describe.each([
     it('stops the runner', () => {
       jest.spyOn(Runner.prototype, 'stop');
       const context = {};
-      m.before!({ context } as middy.HandlerLambda, next);
-      fn!({ context } as middy.HandlerLambda, next);
+      m.before!({ context } as middy.Request);
+      fn!({ context } as middy.Request);
       expect(Runner.prototype.stop).toHaveBeenCalledTimes(1);
     });
   });
@@ -82,9 +79,9 @@ describe.each([true, false])('when wait is set to %s', (wait) => {
     );
 
     const context = {};
-    await m.before!({ context } as middy.HandlerLambda, next);
+    await m.before!({ context } as middy.Request);
     expect(started).toBe(wait ? true : false);
-    await m.after!({ context } as middy.HandlerLambda, next);
+    await m.after!({ context } as middy.Request);
     expect(stopped).toBe(wait ? true : false);
   });
 });
@@ -102,7 +99,7 @@ describe('when configured with a createLogger option', () => {
       },
     });
 
-    await m.before!({ context } as middy.HandlerLambda, next);
+    await m.before!({ context } as middy.Request);
     expect(logger).not.toHaveBeenCalled();
     expect((context as ChaosContext).chaosRunner!.logger).toBe(
       middlewareLogger

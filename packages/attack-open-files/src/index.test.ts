@@ -24,9 +24,9 @@ describe('when opening 10 files', () => {
 describe('when given defaults', () => {
   it('opens 1000 files', async () => {
     const closeFn = jest.fn();
-    jest.spyOn(fs, 'open').mockResolvedValue(({
+    jest.spyOn(fs, 'open').mockResolvedValue({
       close: closeFn,
-    } as unknown) as fs.FileHandle);
+    } as unknown as fs.FileHandle);
 
     const attack = new OpenFilesAttack();
     await attack.start();
@@ -42,9 +42,9 @@ describe('when given defaults', () => {
 describe('when stopped before completing opening the files', () => {
   it('still closes all files', async () => {
     const closeFn = jest.fn();
-    jest.spyOn(fs, 'open').mockResolvedValue(({
+    jest.spyOn(fs, 'open').mockResolvedValue({
       close: closeFn,
-    } as unknown) as fs.FileHandle);
+    } as unknown as fs.FileHandle);
 
     const attack = new OpenFilesAttack({ number: 10 });
     const startPromise = attack.start();

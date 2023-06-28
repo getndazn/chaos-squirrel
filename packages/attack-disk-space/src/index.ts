@@ -59,7 +59,8 @@ export default class DiskSpaceAttack {
     if (this.file) {
       try {
         await fs.unlink(this.file);
-      } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
         if (err.code !== 'ENOENT') {
           throw err;
         }

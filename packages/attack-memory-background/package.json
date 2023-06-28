@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "shx rm -rf dist && tsc",
+    "build": "shx rm -rf {dist,tsconfig.tsbuildinfo} && tsc",
     "build:watch": "tsc -w",
     "test": "jest"
   },
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/getndazn/chaos-squirrel/packages/attack-memory-background#readme",
   "dependencies": {
-    "@dazn/chaos-squirrel-attack-memory": "^0.10.1"
+    "@dazn/chaos-squirrel-attack-memory": "*",
+    "dependency": "^0.0.1"
   },
   "publishConfig": {
     "access": "public"

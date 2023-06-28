@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "shx rm -rf dist && tsc",
+    "build": "shx rm -rf {dist,tsconfig.tsbuildinfo} && tsc",
     "build:watch": "tsc -w",
     "test": "jest"
   },
@@ -26,6 +26,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "@dazn/chaos-squirrel-attack-cpu": "^0.10.1"
+    "@dazn/chaos-squirrel-attack-cpu": "*"
+  },
+  "dependencies": {
+    "dependency": "^0.0.1"
   }
 }

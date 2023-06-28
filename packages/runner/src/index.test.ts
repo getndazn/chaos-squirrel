@@ -52,9 +52,7 @@ describe('when there are no possible attacks', () => {
     expect(runner.attack).toBeUndefined();
     runner.stop();
 
-    expect(
-      debugFn
-    ).toHaveBeenCalledWith(
+    expect(debugFn).toHaveBeenCalledWith(
       `Not running any attacks, no attack matched in findAttack`,
       { weightedRandom: 0, sumWeights: 0 }
     );
@@ -87,9 +85,7 @@ describe('when weight is set to 0', () => {
     expect(createAttack).not.toHaveBeenCalled();
     expect(runner.attack).toBeUndefined();
 
-    expect(
-      debugFn
-    ).toHaveBeenCalledWith(
+    expect(debugFn).toHaveBeenCalledWith(
       'Not running any attacks, no attack matched in findAttack',
       { weightedRandom: 0, sumWeights: 0 }
     );

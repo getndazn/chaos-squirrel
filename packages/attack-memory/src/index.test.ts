@@ -40,7 +40,11 @@ describe('when given lengths larger than the max buffer length', () => {
 });
 
 describe('when given progressive attack options', () => {
-  beforeAll(() => jest.useFakeTimers());
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.spyOn(global, 'setInterval');
+    jest.spyOn(global, 'clearInterval');
+  });
   afterAll(() => jest.useRealTimers());
 
   it('progressively allocates memory', () => {
